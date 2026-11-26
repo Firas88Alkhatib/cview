@@ -16,6 +16,10 @@ paths:
 - `tests/e2e/`: Playwright. Use role/label locators and web-first assertions (`await expect(locator)...`).
   Never use `waitForTimeout`. Clear storage per test. A running `bun run dev` on :3000 is reused, so
   stop it if you need to verify production-build behaviour. Chromium only (D-29).
-- Build data with factories from `tests/fixtures/`, not inline object literals.
+- Build data with factories from `~~/tests/fixtures/cv`, not inline object literals:
+  `make{Profile,Link,Experience,Project,Education,Skill,Language,Theme,CvData,Version}(overrides)` and the presets
+  `minimalCvData()`, `fullCvData()` (every optional field) and `longCvData()` (overflows one A4 page).
+  Ids are deterministic UUIDs (`fixtureId()`). For invalid data, spread and override: `{ ...makeSkill(), level: 9 }`.
+- When a schema changes, update the factories. `tests/unit/fixtures/cv.test.ts` fails if they stop being valid.
 - Name tests `describe('<unit>')` + `it('<does what> when <condition>')`.
 - Run the single file you changed first, then the project suite.

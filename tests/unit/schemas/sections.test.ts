@@ -10,30 +10,24 @@ import {
   skillSchema,
   themeSchema,
 } from '~/schemas'
-import { ID, ID_2, issuesOf } from '~~/tests/unit/schemas/helpers'
+import {
+  makeEducation,
+  makeExperience,
+  makeLanguage,
+  makeLink,
+  makeProfile,
+  makeProject,
+  makeSkill,
+  makeTheme,
+} from '~~/tests/fixtures/cv'
+import { issuesOf } from '~~/tests/unit/schemas/helpers'
 
-// Minimal valid samples. P1-T02 moves these into tests/fixtures factories.
-const link = { id: ID, label: 'GitHub', url: 'https://github.com/ada' }
-const profile = { firstName: 'Ada', lastName: 'Lovelace', links: [] }
-const project = { id: ID_2, name: 'Analytical Engine notes', skills: [] }
-const experience = {
-  id: ID,
-  company: 'Babbage & Co',
-  role: 'Engineer',
-  period: { start: '1842-01' },
-  skills: [],
-  projects: [],
-}
-const education = {
-  id: ID,
-  institution: 'University of London',
-  degree: 'BSc',
-  period: { start: '1830-09', end: '1834-06' },
-}
-const theme = {
-  colors: { primary: '#1E40AF', background: '#FFFFFF', text: '#111827' },
-  font: 'Inter',
-}
+const link = makeLink()
+const profile = makeProfile()
+const project = makeProject()
+const experience = makeExperience()
+const education = makeEducation()
+const theme = makeTheme()
 
 describe('linkSchema', () => {
   it('accepts a labelled http(s) link', () => {
@@ -153,29 +147,29 @@ describe('educationSchema', () => {
 
 describe('skillSchema', () => {
   it('accepts a skill with or without a level', () => {
-    expect(issuesOf(skillSchema, { id: ID, name: 'Vue' })).toEqual([])
-    expect(issuesOf(skillSchema, { id: ID, name: 'Vue', level: 5 })).toEqual([])
+    expect(issuesOf(skillSchema, makeSkill({ name: 'Vue' }))).toEqual([])
+    expect(issuesOf(skillSchema, makeSkill({ name: 'Vue', level: 5 }))).toEqual([])
   })
 
   it.each([
     [0, 'validation.tooLow'],
     [6, 'validation.tooHigh'],
   ])('rejects level %i', (level, key) => {
-    expect(issuesOf(skillSchema, { id: ID, name: 'Vue', level })).toEqual([['level', key]])
+    expect(issuesOf(skillSchema, { ...makeSkill(), level })).toEqual([['level', key]])
   })
 
   it('rejects fractional levels', () => {
-    expect(issuesOf(skillSchema, { id: ID, name: 'Vue', level: 2.5 })).toHaveLength(1)
+    expect(issuesOf(skillSchema, { ...makeSkill(), level: 2.5 })).toHaveLength(1)
   })
 })
 
 describe('languageSchema', () => {
   it.each(['A1', 'C2', 'native'])('accepts CEFR/native level %s', (level) => {
-    expect(issuesOf(languageSchema, { id: ID, name: 'German', level })).toEqual([])
+    expect(issuesOf(languageSchema, { ...makeLanguage(), level })).toEqual([])
   })
 
   it('rejects free-text levels', () => {
-    expect(issuesOf(languageSchema, { id: ID, name: 'German', level: 'Fluent' })).toEqual([
+    expect(issuesOf(languageSchema, { ...makeLanguage(), level: 'Fluent' })).toEqual([
       ['level', 'validation.invalidOption'],
     ])
   })

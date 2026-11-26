@@ -1,25 +1,10 @@
 import { describe, expect, it } from 'vitest'
 import { cvDataSchema, cvVersionSchema } from '~/schemas'
-import { ID, issuesOf } from '~~/tests/unit/schemas/helpers'
+import { makeCvData, makeProfile, makeVersion } from '~~/tests/fixtures/cv'
+import { issuesOf } from '~~/tests/unit/schemas/helpers'
 
-const data = {
-  profile: { firstName: 'Ada', lastName: 'Lovelace', links: [] },
-  experience: [],
-  education: [],
-  skills: [],
-  languages: [],
-}
-
-const version = {
-  id: ID,
-  name: 'Frontend role',
-  templateId: 'classic',
-  theme: { colors: { primary: '#1E40AF', background: '#FFFFFF', text: '#111827' }, font: 'Inter' },
-  pdfLocale: 'de',
-  data,
-  createdAt: '2026-11-26T10:00:00Z',
-  updatedAt: '2026-11-26T10:05:00.123Z',
-}
+const data = makeCvData()
+const version = makeVersion({ name: 'Frontend role', pdfLocale: 'de', data })
 
 describe('cvDataSchema', () => {
   it('accepts a CV with only a name', () => {
@@ -46,7 +31,7 @@ describe('cvVersionSchema', () => {
   })
 
   it('reports nested content errors with the full path', () => {
-    const bad = { ...version, data: { ...data, profile: { ...data.profile, firstName: '' } } }
+    const bad = makeVersion({ data: makeCvData({ profile: makeProfile({ firstName: '' }) }) })
     expect(issuesOf(cvVersionSchema, bad)).toEqual([
       ['data.profile.firstName', 'validation.required'],
     ])

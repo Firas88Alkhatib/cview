@@ -6,7 +6,7 @@ All UI text goes through i18n keys (D-20), so every task adds its strings to `i1
 | ID | Task | Status | Depends |
 |---|---|---|---|
 | P1-T01 | Zod schemas + inferred types for all CV sections | done | P0-T02 |
-| P1-T02 | Test fixtures/factories (`makeCvData`, …) | todo | P1-T01 |
+| P1-T02 | Test fixtures/factories (`makeCvData`, …) | done | P1-T01 |
 | P1-T03 | Persistence: `StorageAdapter` + sessionStorage adapter | todo | P1-T01 |
 | P1-T04 | Stores: `cv`, `versions`, `ui` | todo | P1-T03 |
 | P1-T05 | App shell: full-height layout, top bar + split area, no page scroll | todo | P0-T04 |

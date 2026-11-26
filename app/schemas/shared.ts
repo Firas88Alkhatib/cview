@@ -24,7 +24,7 @@ export const LIMITS = {
 /** Attaches an i18n key to a custom refinement issue. */
 export const withKey = (i18nKey: string) => ({ params: { i18nKey } })
 
-/** Stable id for list items (tabs, animation keys, reordering). Generate with crypto.randomUUID(). */
+/** Stable id for list items (tabs, animation keys, reordering). Generate with newId() (~/utils/id). */
 export const idSchema = z.uuid()
 
 export const requiredText = (max: number) => z.string().trim().min(1).max(max)

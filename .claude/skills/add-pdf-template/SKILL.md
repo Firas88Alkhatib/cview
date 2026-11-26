@@ -9,15 +9,17 @@ description: Create a new CV PDF template for CView using @ceereals/vue-pdf, reg
 order), fonts, default colours, and whether a photo is supported.
 
 1. Create `app/pdf/templates/<id>/`:
-   - `meta.ts` exports `{ id, name, description, defaultTheme }`, where `defaultTheme` satisfies `themeSchema`.
-   - `Template.vue` takes props `{ data: CvData; theme: Theme }` and uses vue-pdf primitives only
-     (see `.claude/rules/pdf.md`). Reuse blocks from `app/pdf/shared/`.
-2. Register the template in `app/pdf/registry.ts`.
-3. Fonts go in `public/fonts/` and are registered in `app/pdf/shared/fonts.ts` (ask about the licence or source).
+   - `meta.ts` exports `meta: TemplateMeta` (`{ id, name, defaultTheme }`), where `defaultTheme` satisfies `themeSchema`.
+   - `<Name>Template.vue` (multi-word name, D-27) takes `TemplateProps` (`{ data, theme, labels, locale }` from
+     `app/pdf/registry.ts`) and uses vue-pdf primitives only (see `.claude/rules/pdf.md`). Reuse
+     `app/pdf/shared/format.ts`. Font: `resolveFontFamily(theme.font)`. Text: `labels`, never hard-coded.
+   - Add the id to `TEMPLATE_IDS` in `app/pdf/meta.ts`.
+2. Register the template in `TEMPLATES` in `app/pdf/registry.ts`.
+3. Fonts: use the bundled families (`FONT_FAMILIES`, D-45). A new font is a Fontsource package plus `?url` imports in
+   `app/pdf/shared/fonts.ts` and an entry in `FONT_FAMILIES` (ask first; check the licence).
 4. Handle edge cases: all optional fields empty, very long text, many entries (page breaks; use `wrap` and
    `break` props as the vue-pdf docs describe), and non-Latin characters if the font supports them.
-5. Tests:
-   - unit: the registry resolves `<id>`, `meta.defaultTheme` passes `themeSchema`, and the mappers work
-   - e2e: select the template, the preview renders (a new `blob:` URL), and the download works
-6. Visual check: render with the `makeCvData()` full and minimal fixtures and show the developer
-   (screenshot via Playwright) before marking the task done.
+5. Tests (no PDF content testing, D-45): the registry resolves `<id>` and `meta.defaultTheme` passes `themeSchema`
+   (`tests/nuxt/pdf/registry.test.ts`), unit tests for any new pure helpers, and E2E that the preview still produces a PDF.
+6. Visual check: headless Chromium can't show PDFs (Q-14). Ask the developer to look at it in `bun run dev` with the
+   full and minimal fixtures before marking the task done.

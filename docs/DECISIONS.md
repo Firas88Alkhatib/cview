@@ -48,6 +48,8 @@ Format: `D-<n> | date | decision | why`. Append new entries; don't rewrite histo
 - **D-42 | 2026-11-26 | Always `import * as z from 'zod'` (Zod 4's recommended form), never `import { z }`; enforced by ESLint `no-restricted-syntax`.** With `{ z }`, the dev server's SSR module runner (on Bun) evaluated Zod's circular internals before the `z` alias was filled, so `z.uuid` was `undefined` and every page returned 500. The namespace import fixed it (verified on an isolated dev server). The production build and Vitest never showed it, so the lint rule is the guard.
 - **D-43 | 2026-11-26 | Split limits: preview ≥ 360px, editor ≥ 400px, free in between; stored as the preview's fraction (re-clamped on window resize). Keyboard: arrows ±24px, Shift ±96px, Home/End to the limits.** Developer choice. Pixel minimums keep both sides usable on any screen size.
 - **D-44 | 2026-11-26 | Preview collapse: dragging below half the minimum (preview < 180px) collapses it live during the drag (dragging back re-opens it); a chevron button on the divider and Enter on the divider also collapse it. The collapsed bar is 28px with a pop-out handle: click restores the width from before the collapse, drag pulls it out to a chosen width. Toggles animate flex-basis (200ms, reduced-motion aware); drags are instant.** Developer choices (snap point, button placement, bar width). Flex-basis animation is an exception to "transforms only", because FLIP scaling would distort the PDF iframe.
+- **D-45 | 2026-11-26 | PDF content: English only, no RTL for now. Fonts: Inter (default, sans), Lora (serif), Poppins (geometric sans), bundled from Fontsource (WOFF, latin, 400/700 × normal/italic) via Vite `?url`. No PDF content testing (no text extractor); test pure helpers, the registry, and that a PDF is produced.** Resolves Q-13. Developer choices; fonts picked by the agent (OFL, Finnish characters, three distinct styles).
+- **D-46 | 2026-11-26 | Client polyfill for `crypto.randomUUID` (`plugins/crypto-polyfill.client.ts`), filling it only when missing, from `crypto.getRandomValues`.** `@ceereals/vue-pdf` calls `crypto.randomUUID()` unguarded per PDF element. Browsers omit it outside secure contexts (plain http by IP: LAN, WSL, phones), so the preview crashed. Guarded by `tests/e2e/insecure-context.spec.ts`.
 
 ## Open questions (ask the developer before the related task)
 - **Q-5 (P1-T07): small screens.** How should the split layout behave on mobile (tabs, drawer, stacked)?
@@ -58,8 +60,6 @@ Format: `D-<n> | date | decision | why`. Append new entries; don't rewrite histo
 - **Q-12 (P1-T25): preview toolbar details.** Where it sits (top or bottom of the preview), the colour
   controls (preset palettes, free picker or both; which colours: primary/secondary/background/text), the font
   list, and whether the template picker and the Download button also go in this toolbar.
-- **Q-13 (P1-T09): PDF languages.** Which CV languages ship first (e.g. en, de, ar)? If Arabic or another RTL
-  language is included, the template must support RTL and the fonts must cover the script.
 - **Q-14 (P1-T11): PDF viewer: browser iframe or pdf.js canvas?** Found in P1-T05: the iframe relies on the browser's
   built-in viewer. That's missing on Android Chrome and in headless test browsers (`navigator.pdfViewerEnabled === false`),
   shows only the first page in some iOS Safari versions, resets scroll on every re-render (new blob URL), and can't be

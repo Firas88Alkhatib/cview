@@ -24,10 +24,11 @@ app/
                       SplitPane.vue, CollapseHandle.vue
     versions/         Version switcher / manager
   pdf/
-    templates/<id>/   Template.vue (vue-pdf components) + meta.ts (id, name, default theme)
+    templates/<id>/   <Name>Template.vue (vue-pdf components) + meta.ts (id, name, default theme)
     shared/           Reusable vue-pdf blocks (SectionTitle, DateRange, …) + font registration
     locales/          PDF label dictionaries per CV language (en.ts, …), typed with one shared shape
-    registry.ts       templateId → { meta, component }
+    registry.ts       templateId → { meta, component } + TemplateProps contract
+    meta.ts           Pure ids/lists: TEMPLATE_IDS, PDF_LOCALES, FONT_FAMILIES + resolve*() fallbacks
   layouts/            default.vue (normal scrolling pages), workspace.vue (editor: h-dvh, page never scrolls)
   plugins/            versions.client.ts (hydrate stores, flush on pagehide), zod-i18n.client.ts
   pages/              index.vue (workspace layout: EditorPanel + PreviewPanel), about.vue

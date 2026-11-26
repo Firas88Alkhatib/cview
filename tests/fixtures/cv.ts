@@ -1,3 +1,4 @@
+import { DEFAULT_TEMPLATE_ID } from '~/pdf/meta'
 import type {
   CvData,
   CvVersion,
@@ -93,7 +94,7 @@ export const makeCvData = (overrides: Partial<CvData> = {}): CvData => ({
 export const makeVersion = (overrides: Partial<CvVersion> = {}): CvVersion => ({
   id: fixtureId(),
   name: 'Main CV',
-  templateId: 'classic',
+  templateId: DEFAULT_TEMPLATE_ID,
   theme: makeTheme(),
   pdfLocale: 'en',
   data: makeCvData(),

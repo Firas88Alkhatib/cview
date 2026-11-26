@@ -25,11 +25,17 @@ paths:
 - Render only on the client (`.client.vue` / `<ClientOnly>`).
 - Bundle: the PDF engine is about **1.9 MB (668 KB gzipped)**. Never import it from the editor shell or layout.
   Keep it in lazily loaded preview code so the editor is interactive before the engine arrives.
-- Fonts: register once in `app/pdf/shared/fonts.ts`. Files go in `public/fonts/`. Never hotlink fonts.
+- Structure: `app/pdf/meta.ts` (pure ids and lists, plus `resolveTemplateId`/`resolveFontFamily`/`resolvePdfLocale`
+  fallbacks for old stored values), `registry.ts` (`TemplateProps` contract, `resolveTemplate`), `locales/` (`PdfLabels`,
+  `getPdfLabels`), `shared/` (format helpers, fonts), and `templates/<id>/<Name>Template.vue` + `meta.ts`.
+- Fonts (D-45): Inter (default), Lora and Poppins from Fontsource WOFF via `?url` in `app/pdf/shared/fonts.ts`.
+  Call `registerPdfFonts()` (idempotent) before rendering. Use `fontWeight: 700` and `fontStyle: 'italic'` only.
+  Never hotlink fonts.
 - Optional fields must render cleanly when empty (no dangling separators or empty headings).
 - Shape data for templates in small pure mappers (e.g. `formatPeriod`) and unit-test those.
-- Tests: `renderToBuffer(h(Template, props))` works in the **nuxt** Vitest project (see
-  `tests/nuxt/pdf/HelloDocument.test.ts`). `/Info` metadata (e.g. `/Title`) is a plain `(literal)`.
-  **Page text is hex-encoded and kerned**, even with `{ compress: false }`, so asserting body text needs a
-  PDF text extractor (decide in P1-T09; ask before adding a dependency).
+- **No PDF content tests (D-45).** Test pure helpers (`app/pdf/shared/format.ts`), the registry and fonts
+  (`tests/nuxt/pdf/registry.test.ts`), and in E2E that a PDF blob is produced. (Page text is hex-encoded and
+  kerned, so content assertions would need an extractor, which was deliberately not added.)
+- vue-pdf calls `crypto.randomUUID()` unguarded. `plugins/crypto-polyfill.client.ts` covers insecure contexts (D-46).
+  For ids in our code use `newId()` (`~/utils/id`), never `crypto.randomUUID()` directly.
 - Bun blocks vue-pdf's `patch-package` postinstall. That's harmless, because the package ships no patches. Don't `bun pm trust` it.

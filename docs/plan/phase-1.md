@@ -13,7 +13,7 @@ All UI text goes through i18n keys (D-20), so every task adds its strings to `i1
 | P1-T06 | Split layout: resizable panels | done | P1-T05 |
 | P1-T07 | Collapse to thin bar + click/drag handle | done | P1-T06, P0-T05 |
 | P1-T08 | Mobile layout behaviour | blocked (Q-5) | P1-T07 |
-| P1-T09 | Template system: registry, theme, fonts, PDF label locales | todo | P0-T07, P1-T01, Q-13 |
+| P1-T09 | Template system: registry, theme, fonts, PDF label locales | done | P0-T07, P1-T01 |
 | P1-T10 | Template #1 | blocked (Q-6) | P1-T09 |
 | P1-T11 | Live preview (`usePdfDocument`, debounce, viewer, PDF-only scroll) + download | todo | P1-T04, P1-T09, Q-14 |
 | P1-T12 | `useDebouncedModel` + debounced input wrappers | todo | P0-T04 |
@@ -88,8 +88,7 @@ the drag position. Use a motion-v spring transition (reduced-motion aware).
 **Ask first:** Q-5. Scope to be written after the answer.
 
 ### P1-T09: Template system
-**Ask first:** Q-13 (which PDF languages ship first; RTL?), the curated font list, and a PDF text extractor
-for template tests (page text is hex-encoded, see `.claude/rules/pdf.md`).
+**Resolved (D-45):** English only, no RTL; fonts Inter/Lora/Poppins; no PDF content tests.
 **Do:** `app/pdf/registry.ts`, the template contract (`props: { data, theme, labels, locale }`),
 `app/pdf/shared/fonts.ts` (fonts in `public/fonts/`), shared blocks, and `app/pdf/locales/` with a typed
 `PdfLabels` shape plus one dictionary per language. Dates in the PDF are formatted with `Intl` using `locale`.
@@ -97,9 +96,11 @@ for template tests (page text is hex-encoded, see `.claude/rules/pdf.md`).
 locale implements every label key (a type check plus a runtime test), and that dates format per locale.
 
 ### P1-T10: Template #1
+**Context:** P1-T09 ships a minimal placeholder, `basic` (`app/pdf/templates/basic/BasicTemplate.vue`), which is the default.
+Ask whether template #1 replaces it or is added beside it (and becomes the default).
 **Ask first:** Q-6 (design reference). Use the `add-pdf-template` skill.
-**Done when:** it renders all sections (empty and optional fields included) without layout breakage, and the
-`long` fixture flows onto page 2.
+**Done when:** the developer has checked it visually in `bun run dev` with the `full`, `minimal` and `long` presets
+(headless browsers can't show PDFs, Q-14; no PDF content tests, D-45).
 
 ### P1-T11: Live preview + download
 **Do:** `usePdfDocument(data, templateId, theme)` wraps vue-pdf's `usePdf` (which already revokes old URLs)

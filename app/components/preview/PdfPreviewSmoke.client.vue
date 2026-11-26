@@ -1,11 +1,26 @@
 <script setup lang="ts">
 import { usePdf } from '@ceereals/vue-pdf'
 import { h } from 'vue'
-import HelloDocument from '~/pdf/HelloDocument.vue'
+import { getPdfLabels } from '~/pdf/locales'
+import { DEFAULT_PDF_LOCALE } from '~/pdf/meta'
+import { defaultTemplate } from '~/pdf/registry'
+import { registerPdfFonts } from '~/pdf/shared/fonts'
+import { createSampleCvData, DEFAULT_THEME } from '~/utils/cvDefaults'
 
-// P0-T07 smoke preview. The `.client` suffix keeps vue-pdf out of SSR. P1-T11 replaces this
-// with the real preview (usePdfDocument + debounce). usePdf revokes old blob URLs itself.
-const { url, error } = usePdf(() => h(HelloDocument, { title: 'Hello, CView!' }))
+// Smoke preview: the template system end to end, with the sample CV. P1-T11 replaces this with
+// the real preview (active version from the store, usePdfDocument with debounce). The `.client`
+// suffix keeps vue-pdf out of SSR. usePdf revokes old blob URLs itself.
+registerPdfFonts()
+const template = defaultTemplate()
+const data = createSampleCvData()
+const { url, error } = usePdf(() =>
+  h(template.component, {
+    data,
+    theme: DEFAULT_THEME,
+    labels: getPdfLabels(DEFAULT_PDF_LOCALE),
+    locale: DEFAULT_PDF_LOCALE,
+  }),
+)
 </script>
 
 <template>

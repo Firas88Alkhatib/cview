@@ -1,19 +1,17 @@
+import { DEFAULT_FONT, DEFAULT_PDF_LOCALE, DEFAULT_TEMPLATE_ID } from '~/pdf/meta'
 import type { CvData, CvVersion, Theme } from '~/types'
 import { newId } from '~/utils/id'
 
-// Defaults for new CV versions. The template id and theme are placeholders until the template
-// system (P1-T09) provides real ones.
-export const DEFAULT_TEMPLATE_ID = 'classic'
-export const DEFAULT_PDF_LOCALE = 'en'
+// Defaults for new CV versions. Ids come from app/pdf/meta.ts (the single source).
 export const DEFAULT_THEME: Theme = {
   colors: { primary: '#0369A1', background: '#FFFFFF', text: '#111827' },
-  font: 'Helvetica',
+  font: DEFAULT_FONT,
 }
 
 /**
  * Example CV for first-time guests (D-41). It's valid from the first moment, so the preview
  * looks good immediately, and the user overwrites it. English content for now; per-PDF-locale
- * samples can follow once PDF languages exist (Q-13).
+ * samples can follow when more PDF languages are added (D-45).
  */
 export function createSampleCvData(): CvData {
   // Persona: the project author. Contact details stay fake (public repo). Dates, degree, skills

@@ -17,5 +17,5 @@ description: Pick up the next task from the CView plan (docs/plan), resolve open
 5. **Test** at the right layer (`write-tests` skill). Run the single file, then `bun run typecheck`,
    `bun run lint`, `bun run test`, and the affected E2E specs.
 6. **Close.** Set the task's status to `done` in the phase table (and in ROADMAP if the phase finished).
-   Report what changed, the test results (honestly, including failures) and any follow-ups.
+   Report what changed, the test results (honestly, including failures), any follow-ups and a suggested commit message. Never commit or push.
    **Stop.** Don't start the next task without the developer's go-ahead.

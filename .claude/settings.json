@@ -10,6 +10,14 @@
       "Bash(bunx playwright test:*)"
     ],
     "deny": [
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git merge:*)",
+      "Bash(git rebase:*)",
+      "Bash(git reset --hard:*)",
+      "Bash(git tag:*)",
+      "Bash(gh pr create:*)",
+      "Bash(gh pr merge:*)",
       "Read(./bun.lock)",
       "Read(./.nuxt/**)",
       "Read(./.output/**)",

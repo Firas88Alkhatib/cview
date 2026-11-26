@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { NavigationMenuItem } from '@nuxt/ui'
-import Logo from './Logo.vue'
 const GITHUB_URL = 'https://github.com/Firas88Alkhatib'
 defineShortcuts({
   meta_g: {
@@ -23,7 +22,7 @@ const items = computed<NavigationMenuItem[]>(() => [
 <template>
   <UHeader>
     <template #title>
-      <Logo />
+      <AppLogo />
     </template>
 
     <UNavigationMenu :items="items" />

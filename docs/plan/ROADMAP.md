@@ -6,7 +6,7 @@ assumptions that may change.
 
 | Phase | Goal | Status | Tasks |
 |---|---|---|---|
-| 0 | Tooling & foundations | todo | `phase-0.md` |
+| 0 | Tooling & foundations | in-progress | `phase-0.md` |
 | 1 | Frontend MVP: top bar, editor, live preview, 1 template, guest versions | todo | `phase-1.md` |
 | 2 | Backend foundation: Elysia structure, Drizzle + Postgres, shared Zod validation | not planned | none yet |
 | 3 | Auth & server persistence: login, CV CRUD, versions sync, guest → account import | not planned | none yet |

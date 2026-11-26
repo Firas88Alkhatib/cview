@@ -28,13 +28,15 @@ Format: `D-<n> | date | decision | why`. Append new entries; don't rewrite histo
 - **D-22 | 2026-11-26 | Section map confirmed: Profile (no sub-bar) · Experience (sub-tab per company, projects inside) · Education (sub-tab per institution) · Skills & Languages (fixed sub-tabs).** Resolves Q-1.
 - **D-23 | 2026-11-26 | The PDF content language is independent of the UI language, and is stored per CV version.** A CV can be in German while the app is in English.
 - **D-24 | 2026-11-26 | The preview panel has a toolbar where the user picks the PDF template colours, font and language.** Developer requirement. Values are saved on the CV version.
+- **D-25 | 2026-11-26 | TypeScript pinned to `^6.0.3` (matches Nuxt 4's bundled version).** TS 7 (native Go port) lacks the JS API that vue-tsc needs. Revisit when vue-tsc supports TS 7.
+- **D-26 | 2026-11-26 | Linting: `@nuxt/eslint` (flat config) + Prettier, with `eslint-config-prettier` last. Prettier ignores `*.md`.** Resolves Q-7. ESLint catches code problems and Prettier formats. Markdown is agent-facing, and padded tables waste tokens.
+- **D-27 | 2026-11-26 | Component names are multi-word (Vue style guide); app-wide components use the `App` prefix (`AppLogo`, `AppTopbar`).** Required by the `vue/multi-word-component-names` lint rule.
 
 ## Open questions (ask the developer before the related task)
 - **Q-3 (P1-T01): date format.** Confirm ISO strings (`YYYY-MM`) for periods, and "present" = `end` omitted.
 - **Q-4 (P1-T01): data model review.** Confirm the fields per section, required vs optional, and limits.
 - **Q-5 (P1-T07): small screens.** How should the split layout behave on mobile (tabs, drawer, stacked)?
 - **Q-6 (P1-T09): first template design.** Get a reference or description of template #1 (layout, fonts, colours).
-- **Q-7 (P0-T03): linting.** Add `@nuxt/eslint` alongside Prettier?
 - **Q-8 (phase 3): auth.** Provider and strategy (email/password, OAuth, magic link; library choice).
 - **Q-10 (deferred, D-21): Login placeholder in phase 1.** Disabled "coming soon", or a stub page? Keep the GitHub link in the menu?
 - **Q-11 (deferred, D-21): avatar for guests.** What does clicking it open in phase 1 (local name and photo stored with the CV, or a placeholder)?

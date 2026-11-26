@@ -5,9 +5,9 @@ Update `Status` in the table when you start or finish a task.
 
 | ID | Task | Status | Depends |
 |---|---|---|---|
-| P0-T01 | Git init + README | todo | none |
-| P0-T02 | Add Zod, TS strict check, `typecheck` script | todo | none |
-| P0-T03 | Linting (ESLint + Prettier scripts) | todo | Q-7 |
+| P0-T01 | Git init + README | done | none |
+| P0-T02 | Add Zod, TS strict check, `typecheck` script | done | none |
+| P0-T03 | Linting (ESLint + Prettier scripts) | done | none |
 | P0-T04 | Vitest + @nuxt/test-utils (unit & nuxt projects) | todo | P0-T02 |
 | P0-T05 | motion-v setup + reduced motion + animation presets | todo | P0-T04 |
 | P0-T06 | Playwright E2E setup | todo | P0-T04 |
@@ -18,9 +18,9 @@ Update `Status` in the table when you start or finish a task.
 
 ### P0-T01: Git init + README
 **Goal:** version control and an accurate README.
-**Do:** `git init` (ask first; it is not a repo yet). Replace the starter README with a project summary,
+**Do:** Replace the starter README with a project summary,
 setup and commands (point to `AGENTS.md`/`docs/`). Check that `.gitignore` covers `test-results/` and `playwright-report/`.
-**Done when:** the repo is initialised and the README is accurate. No commit unless the developer asks.
+**Done when:** the README is accurate (git is already initialised). The developer commits; never commit or push (AGENTS.md rule 7).
 
 ### P0-T02: Zod + typecheck
 **Goal:** validation library available, type errors caught by a script.

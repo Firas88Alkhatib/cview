@@ -16,7 +16,10 @@ Full product spec: `docs/PROJECT.md` · Architecture: `docs/ARCHITECTURE.md` · 
 5. **Every change ships with tests** at the right layer (see `docs/TESTING.md`). Run checks before
    reporting done; report failures honestly with output.
 6. Record settled decisions in `docs/DECISIONS.md`; update task status in the phase file when done.
-7. Never commit/push unless asked. Never add secrets to the repo.
+7. **Never run `git commit` or `git push`.** Never amend, rebase, merge, tag or force anything else that
+   rewrites or publishes history. The developer commits and pushes. When work is ready, say so and suggest
+   a commit message. Staging (`git add`), `git status`, `git diff` and `git log` are fine.
+   Never add secrets to the repo.
 
 ## Stack (do not swap without asking)
 | Concern | Choice |
@@ -39,7 +42,7 @@ bun install            # install
 bun run dev            # dev server http://localhost:3000
 bun run build          # production build (Nitro preset: bun)
 bun run typecheck      # nuxi typecheck
-bun run lint           # eslint (+ prettier check)
+bun run lint           # eslint + prettier --check (lint:fix / format to auto-fix)
 bun run test:unit      # vitest, project "unit" (node env, fast)
 bun run test:nuxt      # vitest, project "nuxt" (Nuxt runtime, components/integration)
 bun run test:e2e       # playwright
@@ -50,7 +53,7 @@ Run the narrowest command first (single file: `bunx vitest run path/to/file.test
 
 ## Code conventions
 - Prettier: single quotes, no semicolons, width 100. Format matches existing files.
-- Components: PascalCase files; Nuxt auto-imports (components, composables, `utils/`) — don't add
+- Components: PascalCase, **multi-word** names (`App*` prefix for app-wide ones, D-27); Nuxt auto-imports (components, composables, `utils/`) — don't add
   manual imports for auto-imported things. Explicit `import type` for types.
 - Props/emits typed with `defineProps<...>()` / `defineEmits<...>()`. Use `defineModel` for v-model.
 - No `any`. No non-null `!` unless justified in a comment. Prefer `readonly`/`as const` for constants.

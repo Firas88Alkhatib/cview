@@ -1,0 +1,4 @@
+bun.lock
+public/
+# Markdown is agent-facing: compact tables save tokens, so Prettier must not pad them.
+*.md

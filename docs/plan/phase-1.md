@@ -61,7 +61,7 @@ Saves through the adapter are debounced. Hydrate on the client only.
 ### P1-T05: App shell
 **Do:** the layout fills the viewport (`h-dvh`): top bar, then the split area filling the rest. The **page
 never scrolls**. The editor content area scrolls on its own. The preview panel doesn't scroll (D-17).
-Replace the current `Topbar.vue`/default layout (keep the logo).
+Replace the current `AppTopbar.vue`/default layout (keep `AppLogo`).
 **Done when:** an E2E test asserts `document.scrollingElement` doesn't scroll with long editor content.
 
 ### P1-T06: Split layout

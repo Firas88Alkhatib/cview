@@ -34,6 +34,8 @@ Format: `D-<n> | date | decision | why`. Append new entries; don't rewrite histo
 - **D-28 | 2026-11-26 | motion-v usage: components (`Motion`, `AnimatePresence`, `layoutId`) plus named preset directives (`v-fade-up`, `v-fade-in`) from `app/utils/motion.ts`; raw `v-motion` is disabled.** Developer choice. Components handle layout, exit and stagger, presets give one-line entrances, and all values stay in one place.
 - **D-29 | 2026-11-26 | E2E: Playwright against the production build (`build && preview`), reusing an already-running local server outside CI. Chromium only for now; add Firefox/WebKit before release.** Developer choice. Catches build-only bugs, with a fast local loop.
 - **D-30 | 2026-11-26 | vue-pdf smoke render lives on the index page as a placeholder (`PdfPreviewSmoke.client.vue` + `app/pdf/HelloDocument.vue`); P1-T11 replaces it and grows `tests/e2e/preview.spec.ts`.** Developer choice. Nothing is thrown away, and the integration stays guarded.
+- **D-31 | 2026-11-26 | i18n: `@nuxtjs/i18n` v10, strategy `no_prefix`, locale in a `cview_locale` cookie (browser language fallback), messages in `i18n/locales/<code>.json`, lazy-loaded. Missing keys are caught by a source-scanning unit test (`t()` isn't type-safe).** Developer chose no URL prefix; it's an app, so SEO per language doesn't matter.
+- **D-32 | 2026-11-26 | No parent-relative (`../`) imports; use `~/` (app) or `~~/` (root) everywhere, including tests. Same-folder `./` is allowed. Enforced by ESLint `no-restricted-imports`.** Developer requirement. Imports stay readable and survive file moves.
 
 ## Open questions (ask the developer before the related task)
 - **Q-3 (P1-T01): date format.** Confirm ISO strings (`YYYY-MM`) for periods, and "present" = `end` omitted.

@@ -1,0 +1,17 @@
+{
+  "topbar": {
+    "nav": {
+      "about": "About"
+    },
+    "github": {
+      "label": "GitHub",
+      "tooltip": "Open on GitHub"
+    }
+  },
+  "about": {
+    "title": "About"
+  },
+  "preview": {
+    "frameTitle": "CV preview"
+  }
+}

@@ -12,7 +12,7 @@ Update `Status` in the table when you start or finish a task.
 | P0-T05 | motion-v setup + reduced motion + animation presets | done | P0-T04 |
 | P0-T06 | Playwright E2E setup | done | P0-T04 |
 | P0-T07 | Install `@ceereals/vue-pdf` + client-only smoke render | done | P0-T04 |
-| P0-T08 | i18n setup (`@nuxtjs/i18n`, English only) | todo | P0-T04 |
+| P0-T08 | i18n setup (`@nuxtjs/i18n`, English only) | done | P0-T04 |
 
 ---
 

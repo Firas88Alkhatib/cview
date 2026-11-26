@@ -1,3 +1,3 @@
 <template>
-  <p>About page</p>
+  <p>{{ $t('about.title') }}</p>
 </template>

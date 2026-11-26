@@ -9,10 +9,11 @@ defineShortcuts({
 })
 
 const route = useRoute()
+const { t } = useI18n()
 
 const items = computed<NavigationMenuItem[]>(() => [
   {
-    label: 'About',
+    label: t('topbar.nav.about'),
     to: '/about',
     active: route.path.startsWith('/about'),
   },
@@ -30,14 +31,14 @@ const items = computed<NavigationMenuItem[]>(() => [
     <template #right>
       <UColorModeButton class="cursor-pointer" />
 
-      <UTooltip text="Open on GitHub" :kbds="['meta', 'G']">
+      <UTooltip :text="$t('topbar.github.tooltip')" :kbds="['meta', 'G']">
         <UButton
           color="neutral"
           variant="ghost"
           :to="GITHUB_URL"
           target="_blank"
           icon="i-simple-icons-github"
-          aria-label="GitHub"
+          :aria-label="$t('topbar.github.label')"
         />
       </UTooltip>
     </template>

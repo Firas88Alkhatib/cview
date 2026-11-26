@@ -18,7 +18,7 @@ For a bug, write the failing test first, then fix.
 ```ts
 // unit: schema
 import { describe, it, expect } from 'vitest'
-import { linkSchema } from '../../../app/schemas/link'
+import { linkSchema } from '~/schemas/link'
 describe('linkSchema', () => {
   it('rejects an invalid url', () => {
     expect(linkSchema.safeParse({ name: 'GH', url: 'nope' }).success).toBe(false)

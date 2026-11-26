@@ -56,6 +56,8 @@ Run the narrowest command first (single file: `bunx vitest run path/to/file.test
 - Components: PascalCase, **multi-word** names (`App*` prefix for app-wide ones, D-27); Nuxt auto-imports (components, composables, `utils/`) — don't add
   manual imports for auto-imported things. Explicit `import type` for types.
 - Props/emits typed with `defineProps<...>()` / `defineEmits<...>()`. Use `defineModel` for v-model.
+- **Imports: never `../`.** Use `~/…` (app/) or `~~/…` (project root), e.g. `~~/i18n/locales/en.json`.
+  Same-folder `./x` is fine. Enforced by ESLint `no-restricted-imports`, and works in app, unit, nuxt and e2e code (D-32).
 - No `any`. No non-null `!` unless justified in a comment. Prefer `readonly`/`as const` for constants.
 - Keep components small (< ~150 lines). Extract logic to composables (`app/composables/use*.ts`).
 - Styling: Nuxt UI props and `ui` prop first, Tailwind utilities second, no scoped CSS unless needed.

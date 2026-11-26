@@ -5,7 +5,7 @@ import {
   motionConfig,
   presetDirectives,
   quickFadeOut,
-} from '../../../app/utils/motion'
+} from '~/utils/motion'
 
 describe('motion presets', () => {
   it('honours the user reduced-motion preference globally', () => {

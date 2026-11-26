@@ -6,7 +6,8 @@ paths:
 ---
 # Test rules (full strategy: docs/TESTING.md)
 
-- `tests/unit/`: node env, no Nuxt runtime. Import from source with explicit imports (no auto-imports here).
+- `tests/unit/`: node env, no Nuxt runtime. Import from source with explicit relative imports (no auto-imports and no `~` alias here).
+  Type-checked through `typescript.nodeTsConfig` in `nuxt.config.ts`.
 - `tests/nuxt/`: Nuxt env. Use `mountSuspended` and `mockNuxtImport` from `@nuxt/test-utils/runtime`.
 - `tests/e2e/`: Playwright. Use role/label locators and web-first assertions (`await expect(locator)...`).
   Never use `waitForTimeout`. Clear storage per test.

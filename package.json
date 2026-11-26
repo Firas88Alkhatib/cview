@@ -12,6 +12,10 @@
     "lint:fix": "eslint . --fix && prettier --write .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "test": "vitest run",
+    "test:unit": "vitest run --project unit",
+    "test:nuxt": "vitest run --project nuxt",
+    "test:watch": "vitest",
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
@@ -31,12 +35,16 @@
     "@iconify-json/lucide": "^1.2.159",
     "@iconify-json/simple-icons": "^1.2.104",
     "@nuxt/eslint": "^1.17.0",
+    "@nuxt/test-utils": "^4.4.0",
+    "@vue/test-utils": "^2.6.0",
     "eslint": "^10.15.0",
     "eslint-config-prettier": "^10.1.8",
+    "happy-dom": "^21.0.4",
     "nuxt-elysia": "^0.2.0",
     "prettier": "^3.10.1",
     "sass": "^1.108.2",
     "typescript": "^6.0.3",
+    "vitest": "^5.1.2",
     "vue-tsc": "^3.3.14"
   }
 }

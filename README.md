@@ -44,8 +44,9 @@ bun run dev        # http://localhost:3000
 | `bun run generate` | Static generation |
 | `bun run typecheck` | Type-check with vue-tsc |
 | `bun run lint` | ESLint + Prettier check (`lint:fix` / `format` to fix) |
+| `bun run test` | Unit + Nuxt integration tests (`test:unit`, `test:nuxt`, `test:watch`) |
 
-The `test`, `test:unit`, `test:nuxt` and `test:e2e` scripts are added during phase 0.
+The `test:e2e` (Playwright) script is added during phase 0.
 
 ## Project docs
 | | |

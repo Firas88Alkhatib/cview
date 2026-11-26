@@ -46,7 +46,7 @@ bun run lint           # eslint + prettier --check (lint:fix / format to auto-fi
 bun run test:unit      # vitest, project "unit" (node env, fast)
 bun run test:nuxt      # vitest, project "nuxt" (Nuxt runtime, components/integration)
 bun run test:e2e       # playwright
-bun run test           # unit + nuxt
+bun run test           # unit + nuxt (test:watch for watch mode)
 ```
 If a script is missing, its setup task in `docs/plan/phase-0.md` is not done yet — say so, don't improvise.
 Run the narrowest command first (single file: `bunx vitest run path/to/file.test.ts`).

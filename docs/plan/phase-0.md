@@ -8,7 +8,7 @@ Update `Status` in the table when you start or finish a task.
 | P0-T01 | Git init + README | done | none |
 | P0-T02 | Add Zod, TS strict check, `typecheck` script | done | none |
 | P0-T03 | Linting (ESLint + Prettier scripts) | done | none |
-| P0-T04 | Vitest + @nuxt/test-utils (unit & nuxt projects) | todo | P0-T02 |
+| P0-T04 | Vitest + @nuxt/test-utils (unit & nuxt projects) | done | P0-T02 |
 | P0-T05 | motion-v setup + reduced motion + animation presets | todo | P0-T04 |
 | P0-T06 | Playwright E2E setup | todo | P0-T04 |
 | P0-T07 | Install `@ceereals/vue-pdf` + client-only smoke render | todo | P0-T04 |

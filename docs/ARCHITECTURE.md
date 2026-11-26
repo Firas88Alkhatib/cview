@@ -28,7 +28,9 @@ app/
     shared/           Reusable vue-pdf blocks (SectionTitle, DateRange, …) + font registration
     locales/          PDF label dictionaries per CV language (en.ts, …), typed with one shared shape
     registry.ts       templateId → { meta, component }
-  pages/              index.vue (editor), about.vue
+  layouts/            default.vue (normal scrolling pages), workspace.vue (editor: h-dvh, page never scrolls)
+  plugins/            versions.client.ts (hydrate stores, flush on pagehide), zod-i18n.client.ts
+  pages/              index.vue (workspace layout: EditorPanel + PreviewPanel), about.vue
 api.ts                Elysia app (nuxt-elysia mounts it at /api). Phase 2 will split it into server modules
 tests/
   unit/               Pure TS: schemas, utils, stores, adapters  (Vitest node env)

@@ -9,13 +9,13 @@ const { url, error } = usePdf(() => h(HelloDocument, { title: 'Hello, CView!' })
 </script>
 
 <template>
-  <div class="h-[70dvh] w-full">
+  <div class="size-full">
     <p v-if="error" role="alert" class="text-error">{{ error.message }}</p>
     <iframe
       v-else-if="url"
       :src="url"
       :title="$t('preview.frameTitle')"
-      class="size-full rounded-md border-0"
+      class="block size-full border-0"
     />
   </div>
 </template>

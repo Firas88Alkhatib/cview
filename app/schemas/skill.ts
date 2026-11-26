@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import * as z from 'zod'
 import { idSchema, LIMITS, requiredText } from '~/schemas/shared'
 
 export const SKILL_LEVEL = { min: 1, max: 5 } as const

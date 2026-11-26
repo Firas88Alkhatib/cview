@@ -11,8 +11,25 @@
   "about": {
     "title": "About"
   },
+  "editor": {
+    "region": "Editor",
+    "placeholder": "The section editor is coming soon."
+  },
   "preview": {
+    "region": "PDF preview",
     "frameTitle": "CV preview"
+  },
+  "persistence": {
+    "skipped": {
+      "title": "Some CV versions couldn't be loaded",
+      "description": "{count} saved version was damaged or from a newer app version and was skipped. | {count} saved versions were damaged or from a newer app version and were skipped."
+    },
+    "saveFailed": {
+      "title": "Couldn't save your changes",
+      "quota": "Your browser's storage is full. Free some space or remove a CV version.",
+      "unavailable": "Your browser is blocking storage for this site, so changes won't be kept.",
+      "invalid": "Some changes were invalid and weren't saved."
+    }
   },
   "validation": {
     "required": "This field is required",

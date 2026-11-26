@@ -13,6 +13,13 @@ paths:
 - `tests/nuxt/`: Nuxt env. Use `mountSuspended` and `mockNuxtImport` from `@nuxt/test-utils/runtime`.
   Components that render Nuxt UI overlays (UTooltip, UModal, UDropdownMenu, toasts) need
   `mountInApp()` from `tests/nuxt/helpers/mountInApp.ts`, which wraps them in `<UApp>`.
+- In nuxt tests that **mount components**, use the app's own store (`useXStore()` without `setActivePinia(createPinia())`)
+  and reset its fields in `beforeEach`. Components read the nuxtApp Pinia, so a fresh Pinia would be a different store.
+  `createPinia()` is fine for store-only tests.
+- Toasts: in nuxt tests assert on `useToast().toasts`. In E2E, scope to `getByRole('region', { name: /notifications/i })`,
+  because a hidden screen-reader copy of the text also exists in the DOM.
+- Headless Chromium has **no PDF viewer** (`navigator.pdfViewerEnabled === false`), so PDF iframes screenshot blank.
+  Assert on the blob URL and the PDF bytes, not pixels (see Q-14).
 - `tests/e2e/`: Playwright. Use role/label locators and web-first assertions (`await expect(locator)...`).
   Never use `waitForTimeout`. Clear storage per test. A running `bun run dev` on :3000 is reused, so
   stop it if you need to verify production-build behaviour. Chromium only (D-29).

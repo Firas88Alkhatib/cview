@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import * as z from 'zod'
 import { cvDataSchema } from '~/schemas/cv'
 import { idSchema, LIMITS, localeSchema, requiredText } from '~/schemas/shared'
 import { themeSchema } from '~/schemas/theme'

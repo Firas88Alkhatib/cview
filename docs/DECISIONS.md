@@ -45,6 +45,7 @@ Format: `D-<n> | date | decision | why`. Append new entries; don't rewrite histo
 - **D-39 | 2026-11-26 | Unusable stored data: migrate step by step (`migrations[n]`: n → n+1, `CURRENT_SCHEMA_VERSION`), then validate. If that fails, quarantine that version (`cview:quarantine:<id>`), skip it, report it, and keep loading the others.** Developer choice. One bad version never loses everything.
 - **D-40 | 2026-11-26 | Persistence split: CV data goes through the `StorageAdapter`; `ui` store preferences use VueUse `useStorage(sessionStorage)` with a Zod serializer. No `pinia-plugin-persistedstate`.** The plugin saves one blob per store, synchronously and undebounced, with no async/API path, no per-version validation or quarantine, and no valid-only rule, which conflicts with D-38/D-39 and phase 3. For simple UI prefs, VueUse is enough. `@vueuse/core` ^14.4 is a direct dependency (matching Nuxt UI).
 - **D-41 | 2026-11-26 | First-time guests start with an editable example CV ("My CV"), so the store is valid from the first moment and the preview looks good immediately.** Developer choice. "＋ Add" entries stay local in the form until valid, then are created (follows from D-38).
+- **D-42 | 2026-11-26 | Always `import * as z from 'zod'` (Zod 4's recommended form), never `import { z }`; enforced by ESLint `no-restricted-syntax`.** With `{ z }`, the dev server's SSR module runner (on Bun) evaluated Zod's circular internals before the `z` alias was filled, so `z.uuid` was `undefined` and every page returned 500. The namespace import fixed it (verified on an isolated dev server). The production build and Vitest never showed it, so the lint rule is the guard.
 
 ## Open questions (ask the developer before the related task)
 - **Q-5 (P1-T07): small screens.** How should the split layout behave on mobile (tabs, drawer, stacked)?
@@ -57,3 +58,8 @@ Format: `D-<n> | date | decision | why`. Append new entries; don't rewrite histo
   list, and whether the template picker and the Download button also go in this toolbar.
 - **Q-13 (P1-T09): PDF languages.** Which CV languages ship first (e.g. en, de, ar)? If Arabic or another RTL
   language is included, the template must support RTL and the fonts must cover the script.
+- **Q-14 (P1-T11): PDF viewer: browser iframe or pdf.js canvas?** Found in P1-T05: the iframe relies on the browser's
+  built-in viewer. That's missing on Android Chrome and in headless test browsers (`navigator.pdfViewerEnabled === false`),
+  shows only the first page in some iOS Safari versions, resets scroll on every re-render (new blob URL), and can't be
+  styled. pdf.js (`pdfjs-dist`) renders pages to canvas consistently and keeps scroll and zoom under our control, at the
+  cost of a large dependency plus a worker. Decide before building the real preview.

@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import * as z from 'zod'
 import { idSchema, LIMITS, optionalText, periodSchema, requiredText } from '~/schemas/shared'
 
 export const educationSchema = z.object({

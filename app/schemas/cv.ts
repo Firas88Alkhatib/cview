@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import * as z from 'zod'
 import { educationSchema } from '~/schemas/education'
 import { experienceSchema } from '~/schemas/experience'
 import { profileSchema } from '~/schemas/profile'

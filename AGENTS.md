@@ -67,7 +67,8 @@ Run the narrowest command first (single file: `bunx vitest run path/to/file.test
   messages shown in the UI. Key style: `section.component.purpose` (e.g. `editor.profile.firstName`).
 - Accessibility: every input has a label (`UFormField`), interactive elements are keyboard reachable.
 - Client-only code (PDF rendering, storage) must be guarded (`<ClientOnly>`, `import.meta.client`).
-- Comments explain *why*, not *what*.
+- Comments explain *why*, not *what*. Never put a comment at the template root (it counts as a second root
+  node and fails lint). Put it inside the root element.
 
 ## Docs map (open on demand)
 | Need | File |

@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import * as z from 'zod'
 
 /**
  * Per-session layout and navigation preferences (`ui` store, D-40). Every field falls back

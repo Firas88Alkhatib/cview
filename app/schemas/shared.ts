@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import * as z from 'zod'
 
 // Building blocks for every CV schema. Schemas carry NO user-facing text: generic issues are
 // translated by issueToI18n (app/utils/validation.ts), and custom checks attach an i18n key via

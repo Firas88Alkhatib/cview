@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { z } from 'zod'
+import * as z from 'zod'
 import { issueToI18n, VALIDATION_KEYS } from '~/utils/validation'
 import en from '~~/i18n/locales/en.json'
 

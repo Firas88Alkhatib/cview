@@ -6,6 +6,8 @@ paths:
 ---
 # Schemas & forms rules
 
+- Import Zod as `import * as z from 'zod'` (types: `import type * as z from 'zod'`). Never `import { z }`, which
+  breaks dev SSR (D-42) and is blocked by lint.
 - Zod v4 schemas in `app/schemas/` are the single source of truth. Types are `z.infer` only. Never
   hand-write a type that duplicates a schema.
 - Name schemas `<thing>Schema` and types `<Thing>`, e.g. `export const linkSchema = z.object(...)` and `export type Link = z.infer<typeof linkSchema>`.

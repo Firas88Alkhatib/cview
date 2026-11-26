@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { z } from 'zod'
+import * as z from 'zod'
 import { cvDataSchema, cvVersionSchema } from '~/schemas'
 import { createSampleCvData, createVersion, DEFAULT_THEME } from '~/utils/cvDefaults'
 import { newId } from '~/utils/id'

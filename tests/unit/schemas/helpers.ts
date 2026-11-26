@@ -1,4 +1,4 @@
-import type { z } from 'zod'
+import type * as z from 'zod'
 import { issueToI18n } from '~/utils/validation'
 
 /** Parses `value` and returns `[path, i18nKey]` for each issue, or [] when valid. */

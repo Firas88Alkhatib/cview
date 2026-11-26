@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import * as z from 'zod'
 import { issueToI18n } from '~/utils/validation'
 
 // Translates every Zod message into the current UI language at validation time.

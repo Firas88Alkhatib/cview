@@ -54,8 +54,12 @@ Form input ─(debounce 300ms)─(UForm + Zod schema)─▶ cv store ─┬─�
 ```
 - **Single direction.** Forms write to the store. The preview reads from the store. PDF templates
   receive data **only via props** (`data: CvData`, `theme: Theme`) and never touch stores, which keeps them pure and testable.
-- **Persistence boundary.** Stores call a `StorageAdapter` (`load/save/list/remove`) and never touch
-  `sessionStorage` directly. Phase 3 adds an `ApiStorageAdapter` (Eden client) without store changes.
+- **Persistence boundary.** Stores call the async `StorageAdapter` (`app/services/persistence/types.ts`) and never
+  touch `sessionStorage` directly. Guests use `sessionStorageAdapter` (`createWebStorageAdapter`). Phase 3 adds an
+  `ApiStorageAdapter` (Eden client) without store changes.
+- **Storage layout:** `cview:index` (ordered ids), `cview:version:<id>` (`{ schemaVersion, version }` envelope),
+  `cview:active`, and `cview:quarantine:<id>`. On read: migrate, then validate. Failures are quarantined and
+  reported as `skipped` (D-39). On write: validate, or throw `PersistenceError('invalid')` (D-38).
 - **Validation.** The same Zod schemas validate forms (client), storage hydration (reject or migrate corrupt
   data) and, later, API request bodies (Elysia) and DB inserts.
 

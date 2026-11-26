@@ -41,6 +41,8 @@ Format: `D-<n> | date | decision | why`. Append new entries; don't rewrite histo
 - **D-35 | 2026-11-26 | One role per experience entry; a promotion is a second entry for the same company.** Keeps the form flat and matches the per-company sub-tabs.
 - **D-36 | 2026-11-26 | Schema fields and limits approved as proposed (`LIMITS` in `app/schemas/shared.ts`).** Resolves Q-4.
 - **D-37 | 2026-11-26 | Schemas carry no messages. `issueToI18n` maps Zod issues to `validation.*` keys plus params, custom checks attach keys via `withKey()`, and a client plugin (`zod-i18n.client.ts`) registers the mapper with `z.config({ customError })`.** Messages are translated at validation time in the current UI language, with one path for every error.
+- **D-38 | 2026-11-26 | Only valid values reach the store. Forms keep invalid input (with its error) locally, while the store, PDF preview and storage keep the last valid value; `saveVersion` rejects invalid data.** Developer choice. Storage is always valid and there is one schema. Trade-off: an unfinished invalid edit is lost on reload.
+- **D-39 | 2026-11-26 | Unusable stored data: migrate step by step (`migrations[n]`: n → n+1, `CURRENT_SCHEMA_VERSION`), then validate. If that fails, quarantine that version (`cview:quarantine:<id>`), skip it, report it, and keep loading the others.** Developer choice. One bad version never loses everything.
 
 ## Open questions (ask the developer before the related task)
 - **Q-5 (P1-T07): small screens.** How should the split layout behave on mobile (tabs, drawer, stacked)?

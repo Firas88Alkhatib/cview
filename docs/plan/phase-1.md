@@ -7,7 +7,7 @@ All UI text goes through i18n keys (D-20), so every task adds its strings to `i1
 |---|---|---|---|
 | P1-T01 | Zod schemas + inferred types for all CV sections | done | P0-T02 |
 | P1-T02 | Test fixtures/factories (`makeCvData`, …) | done | P1-T01 |
-| P1-T03 | Persistence: `StorageAdapter` + sessionStorage adapter | todo | P1-T01 |
+| P1-T03 | Persistence: `StorageAdapter` + sessionStorage adapter | done | P1-T01 |
 | P1-T04 | Stores: `cv`, `versions`, `ui` | todo | P1-T03 |
 | P1-T05 | App shell: full-height layout, top bar + split area, no page scroll | todo | P0-T04 |
 | P1-T06 | Split layout: resizable panels | todo | P1-T05 |
@@ -55,7 +55,9 @@ and a `schemaVersion`. Data is validated with Zod on read, and invalid data is d
 ### P1-T04: Stores
 **Do:** `cv` (active data plus section actions: add/update/remove/reorder per list, plus nested projects),
 `versions` (list, active id, CRUD), and `ui` (preview width, collapsed, last expanded width, editor `mainId`/`subId`).
-Saves through the adapter are debounced. Hydrate on the client only.
+Saves through the adapter are debounced. Hydrate on the client only. Use `listVersions().skipped` to warn
+the user about quarantined versions (D-39). Store actions only ever receive valid data (D-38). Handle
+`PersistenceError` (`quota`/`unavailable`) with a toast instead of crashing.
 **Done when:** every action has a unit test, and an integration test shows edits persisting across store re-creation.
 
 ### P1-T05: App shell
@@ -105,7 +107,7 @@ sees a new blob URL, and downloads a `.pdf`.
 
 ### P1-T12: Debounced inputs (D-15)
 **Do:** `useDebouncedModel(source, write, { delay: 300 })` keeps the local value instant and writes to the
-store after the delay. It flushes on blur, on unmount and on section change. Add thin wrappers if they
+store after the delay, **only when the field's value is valid** (D-38). Invalid input stays local with its error. It flushes on blur, on unmount and on section change. Add thin wrappers if they
 help (e.g. `DebouncedInput`, `DebouncedTextarea` around `UInput`/`UTextarea`). Ask before adding them.
 **Done when:** unit tests use fake timers to cover the debounce, the flush on blur and unmount, and that
 external store changes sync back without loops.

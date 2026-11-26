@@ -7,9 +7,9 @@ app/
   schemas/            Zod schemas (one file per CV section) + index.ts re-exports. SOURCE OF TRUTH
   types/              Inferred types only: export type X = z.infer<typeof xSchema>
   stores/
-    cv.ts             Active CV data and editing actions (Pinia, setup style)
-    versions.ts       List of CV versions, active version id
-    ui.ts             Layout state (preview width, collapsed)
+    versions.ts       Versions list, active id, commit() (the only write path: validate, then commit), debounced saving
+    cv.ts             Editing actions for the active version (all via versions.commit)
+    ui.ts             Layout and nav prefs (previewSize 0–1, collapsed, editor ids), VueUse useStorage (D-40)
   services/
     persistence/      StorageAdapter interface + sessionStorage adapter (API adapter in phase 3)
   composables/        usePdfDocument, useSplitPane, useDebouncedModel, useEditorNav, …

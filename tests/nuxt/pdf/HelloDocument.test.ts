@@ -11,9 +11,9 @@ describe('HelloDocument', () => {
   })
 
   it('writes the title into the document metadata', async () => {
-    const buffer = await renderToBuffer(h(HelloDocument, { title: 'Ada Lovelace CV' }))
+    const buffer = await renderToBuffer(h(HelloDocument, { title: 'Firas Alkhatib CV' }))
     // The /Info /Title is a plain PDF literal string. Page text is hex-encoded and kerned, so it
     // can't be grepped. Asserting body text needs a PDF text extractor (decide in P1).
-    expect(buffer.toString('latin1')).toContain('(Ada Lovelace CV)')
+    expect(buffer.toString('latin1')).toContain('(Firas Alkhatib CV)')
   })
 })

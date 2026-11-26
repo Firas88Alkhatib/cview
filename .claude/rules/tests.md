@@ -20,6 +20,9 @@ paths:
   `make{Profile,Link,Experience,Project,Education,Skill,Language,Theme,CvData,Version}(overrides)` and the presets
   `minimalCvData()`, `fullCvData()` (every optional field) and `longCvData()` (overflows one A4 page).
   Ids are deterministic UUIDs (`fixtureId()`). For invalid data, spread and override: `{ ...makeSkill(), level: 9 }`.
+- **Example persona** (fixtures, example CV, specs, screenshots): Firas Alkhatib, Software Developer at Reaktor,
+  Lahti, Finland, GitHub `https://github.com/Firas88Alkhatib`, University of Helsinki. Keep email and phone
+  **fake** (`@example.com`, `+358 40 000 0000`), because the repo is public. Don't invent other real people.
 - When a schema changes, update the factories. `tests/unit/fixtures/cv.test.ts` fails if they stop being valid.
 - Name tests `describe('<unit>')` + `it('<does what> when <condition>')`.
 - Run the single file you changed first, then the project suite.

@@ -54,12 +54,17 @@ describe('profileSchema', () => {
   it('accepts a fully filled profile', () => {
     const full = {
       ...profile,
-      title: 'Mathematician',
-      summary: 'First programmer.',
-      email: 'ada@example.com',
-      phone: '+44 20 1234 5678',
-      dateOfBirth: '1815-12-10',
-      address: { country: 'UK', city: 'London', street: 'St James', postalCode: 'SW1' },
+      title: 'Software Developer',
+      summary: 'Builds web apps.',
+      email: 'firas.alkhatib@example.com',
+      phone: '+358 40 000 0000',
+      dateOfBirth: '1990-01-01',
+      address: {
+        country: 'Finland',
+        city: 'Lahti',
+        street: 'Example street 1',
+        postalCode: '15100',
+      },
       links: [link],
     }
     expect(issuesOf(profileSchema, full)).toEqual([])

@@ -15,6 +15,7 @@ import type {
   themeSchema,
   WORK_MODELS,
 } from '~/schemas'
+import type { uiStateSchema } from '~/schemas/ui'
 
 // Inferred types only. Never hand-write a type that duplicates a schema (D-3).
 export type Period = z.infer<typeof periodSchema>
@@ -31,3 +32,4 @@ export type Language = z.infer<typeof languageSchema>
 export type Theme = z.infer<typeof themeSchema>
 export type CvData = z.infer<typeof cvDataSchema>
 export type CvVersion = z.infer<typeof cvVersionSchema>
+export type UiState = z.infer<typeof uiStateSchema>

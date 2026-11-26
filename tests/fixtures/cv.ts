@@ -26,29 +26,29 @@ export function fixtureId(): string {
 export const makeLink = (overrides: Partial<Link> = {}): Link => ({
   id: fixtureId(),
   label: 'GitHub',
-  url: 'https://github.com/ada',
+  url: 'https://github.com/Firas88Alkhatib',
   ...overrides,
 })
 
 export const makeProfile = (overrides: Partial<Profile> = {}): Profile => ({
-  firstName: 'Ada',
-  lastName: 'Lovelace',
+  firstName: 'Firas',
+  lastName: 'Alkhatib',
   links: [],
   ...overrides,
 })
 
 export const makeProject = (overrides: Partial<Project> = {}): Project => ({
   id: fixtureId(),
-  name: 'Analytical Engine notes',
+  name: 'Customer portal',
   skills: [],
   ...overrides,
 })
 
 export const makeExperience = (overrides: Partial<Experience> = {}): Experience => ({
   id: fixtureId(),
-  company: 'Babbage & Co',
-  role: 'Engineer',
-  period: { start: '1842-01' },
+  company: 'Reaktor',
+  role: 'Software Developer',
+  period: { start: '2022-01' },
   skills: [],
   projects: [],
   ...overrides,
@@ -56,15 +56,15 @@ export const makeExperience = (overrides: Partial<Experience> = {}): Experience 
 
 export const makeEducation = (overrides: Partial<Education> = {}): Education => ({
   id: fixtureId(),
-  institution: 'University of London',
-  degree: 'BSc Mathematics',
-  period: { start: '1830-09', end: '1834-06' },
+  institution: 'University of Helsinki',
+  degree: 'BSc Computer Science',
+  period: { start: '2017-09', end: '2021-06' },
   ...overrides,
 })
 
 export const makeSkill = (overrides: Partial<Skill> = {}): Skill => ({
   id: fixtureId(),
-  name: 'Mathematics',
+  name: 'TypeScript',
   ...overrides,
 })
 
@@ -111,44 +111,50 @@ export const minimalCvData = (): CvData => makeCvData()
 export const fullCvData = (): CvData =>
   makeCvData({
     profile: makeProfile({
-      title: 'Mathematician & first programmer',
-      summary: 'Wrote the first published algorithm intended for a machine.',
-      email: 'ada@example.com',
-      phone: '+44 20 1234 5678',
-      dateOfBirth: '1815-12-10',
-      address: { country: 'United Kingdom', city: 'London', street: 'St James', postalCode: 'SW1' },
-      links: [makeLink(), makeLink({ label: 'Website', url: 'https://ada.example.com' })],
+      title: 'Software Developer',
+      summary: 'Software developer who enjoys building fast, accessible and well-tested web apps.',
+      // Fake contact details: this repo is public.
+      email: 'firas.alkhatib@example.com',
+      phone: '+358 40 000 0000',
+      dateOfBirth: '1990-01-01',
+      address: {
+        country: 'Finland',
+        city: 'Lahti',
+        street: 'Example street 1',
+        postalCode: '15100',
+      },
+      links: [makeLink(), makeLink({ label: 'Website', url: 'https://example.com' })],
     }),
     experience: [
       makeExperience({
-        location: 'London',
+        location: 'Lahti, Finland',
         workModel: 'hybrid',
-        description: 'Translated and annotated Menabrea’s paper on the Analytical Engine.',
-        skills: ['Algorithms', 'Technical writing'],
+        description: 'Building web applications for clients across several industries.',
+        skills: ['TypeScript', 'Vue', 'Nuxt'],
         projects: [
           makeProject({
-            role: 'Author',
-            period: { start: '1842-09', end: '1843-07' },
-            description: 'Note G: an algorithm to compute Bernoulli numbers.',
-            skills: ['Algorithms'],
+            role: 'Frontend lead',
+            period: { start: '2023-02', end: '2024-05' },
+            description: 'Self-service portal with a shared component library.',
+            skills: ['Vue', 'Accessibility'],
           }),
         ],
       }),
       makeExperience({
-        company: 'Royal Society',
-        role: 'Correspondent',
-        period: { start: '1835-01', end: '1841-12' },
+        company: 'Previous Company',
+        role: 'Junior Developer',
+        period: { start: '2021-06', end: '2021-12' },
       }),
     ],
     education: [
       makeEducation({
-        major: 'Mathematics',
-        location: 'London',
-        description: 'Private tutoring by De Morgan.',
+        major: 'Software Engineering',
+        location: 'Helsinki, Finland',
+        description: 'Thesis on web application performance.',
       }),
     ],
-    skills: [makeSkill({ level: 5 }), makeSkill({ name: 'Poetical science', level: 4 })],
-    languages: [makeLanguage(), makeLanguage({ name: 'French', level: 'C1' })],
+    skills: [makeSkill({ level: 5 }), makeSkill({ name: 'Vue & Nuxt', level: 4 })],
+    languages: [makeLanguage({ level: 'C1' }), makeLanguage({ name: 'Finnish', level: 'B1' })],
   })
 
 /** Enough content to overflow one A4 page (page-break and layout tests). */

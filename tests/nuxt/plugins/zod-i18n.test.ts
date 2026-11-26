@@ -10,14 +10,14 @@ const messagesOf = (result: { success: boolean; error?: { issues: { message: str
 
 describe('zod-i18n plugin', () => {
   it('translates generic issues into the current UI language', () => {
-    const result = profileSchema.safeParse({ firstName: '', lastName: 'Lovelace', links: [] })
+    const result = profileSchema.safeParse({ firstName: '', lastName: 'Alkhatib', links: [] })
     expect(messagesOf(result)).toEqual([en.validation.required])
   })
 
   it('interpolates limits into the message', () => {
     const result = profileSchema.safeParse({
       firstName: 'x'.repeat(51),
-      lastName: 'Lovelace',
+      lastName: 'Alkhatib',
       links: [],
     })
     expect(messagesOf(result)).toEqual(['Must be at most 50 characters'])

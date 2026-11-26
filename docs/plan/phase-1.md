@@ -8,7 +8,7 @@ All UI text goes through i18n keys (D-20), so every task adds its strings to `i1
 | P1-T01 | Zod schemas + inferred types for all CV sections | done | P0-T02 |
 | P1-T02 | Test fixtures/factories (`makeCvData`, …) | done | P1-T01 |
 | P1-T03 | Persistence: `StorageAdapter` + sessionStorage adapter | done | P1-T01 |
-| P1-T04 | Stores: `cv`, `versions`, `ui` | todo | P1-T03 |
+| P1-T04 | Stores: `cv`, `versions`, `ui` | done | P1-T03 |
 | P1-T05 | App shell: full-height layout, top bar + split area, no page scroll | todo | P0-T04 |
 | P1-T06 | Split layout: resizable panels | todo | P1-T05 |
 | P1-T07 | Collapse to thin bar + click/drag handle | todo | P1-T06, P0-T05 |
@@ -63,12 +63,16 @@ the user about quarantined versions (D-39). Store actions only ever receive vali
 ### P1-T05: App shell
 **Do:** the layout fills the viewport (`h-dvh`): top bar, then the split area filling the rest. The **page
 never scrolls**. The editor content area scrolls on its own. The preview panel doesn't scroll (D-17).
-Replace the current `AppTopbar.vue`/default layout (keep `AppLogo`).
+Replace the current `AppTopbar.vue`/default layout (keep `AppLogo`). **Wire the stores:** call
+`useVersionsStore().hydrate()` once on the client (plugin or `onMounted`), `flush()` on `pagehide`, and show
+`skipped`/`saveError` as toasts (or leave a TODO for P1-T23). Avoid SSR hydration mismatches from `ui` state
+(it's read from sessionStorage on the client): render size-dependent layout after mount.
 **Done when:** an E2E test asserts `document.scrollingElement` doesn't scroll with long editor content.
 
 ### P1-T06: Split layout
 **Do:** `SplitPane.vue` in `app/components/preview/`. Drag the divider to resize the right panel between
-`min` and `max` (ask the values). Pointer events with pointer capture, keyboard resize (arrow keys on a
+`min` and `max` (ask the values). The `ui` store holds `previewSize` as a **fraction (0–1)** of the split area,
+with `setPreviewSize`/`collapsePreview`/`expandPreview(size?)`. Convert px to a fraction in the component. Pointer events with pointer capture, keyboard resize (arrow keys on a
 focusable `role="separator"` with `aria-valuenow`). The width is stored in the `ui` store.
 **Done when:** integration tests cover the width clamp and keyboard resize, and an E2E test drags the divider.
 
@@ -135,7 +139,10 @@ switching must not queue animations. Move focus to the content heading after a s
 and sees the content change. The reduced-motion path is tested.
 
 ### P1-T16 … P1-T19: Sections
-Each uses the `add-cv-section` skill: `UForm` with its Zod schema, debounced inputs and store actions.
+Each uses the `add-cv-section` skill: `UForm` with its Zod schema, debounced inputs and store actions
+(`useCvStore()`: `updateProfile`, `add/update/remove/move{Link,Experience,Education,Skill,Language}`,
+`add/update/remove/moveProject(experienceId, …)`; they return `false`/`null` when the result would be invalid).
+**＋ Add** tabs keep the new entry in local form state until it's valid, then call `add…` (D-41).
 Stagger-item wrappers go on the form groups. Each gets integration tests (validation, store updates) and
 an E2E test (the edit shows in the preview).
 - **T16 Profile:** no sub-bar. Personal info, summary, contact, address, links (list).

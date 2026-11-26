@@ -7,6 +7,15 @@ paths:
 # State & persistence rules
 
 - Pinia setup-style stores (`defineStore('cv', () => { ... })`). State is `ref`, getters are `computed`, actions are functions.
+- Stores, services and the utils they use **import explicitly** (`pinia`, `vue`, `~/…`), an exception to the
+  auto-import rule, so they run in the plain-node `unit` project.
+- **All CV writes go through `versions.commit(id, mutate)`**, which clones, mutates, validates the whole version and
+  commits only if valid. `cv` store actions wrap it and return `boolean` (or `id | null` for adds). Never mutate
+  `versions.versions` directly.
+- `structuredClone` can't copy reactive proxies, so use `structuredClone(toRaw(x))`.
+- Unit-test stores with `setActivePinia(createPinia())`, an adapter over `MemoryStorage`, `hydrate({ adapter })`,
+  fake timers and `flush()`. For reload tests (`tests/nuxt/stores/persistence.test.ts`), make a fresh Pinia
+  against the same sessionStorage.
 - Stores reach storage only through the `StorageAdapter` interface (`app/services/persistence/`).
   Never call `sessionStorage` or `localStorage` from stores or components.
 - Hydrate on the client only, and validate hydrated data with Zod. Invalid data is never trusted.

@@ -41,7 +41,7 @@ test('editing name updates the preview', async ({ page }) => {
   await page.goto('/')
   const frame = page.getByTitle('CV preview')
   const before = await frame.getAttribute('src')
-  await page.getByLabel('First name').fill('Ada')
+  await page.getByLabel('First name').fill('Firas')
   await expect(frame).not.toHaveAttribute('src', before!)
 })
 ```

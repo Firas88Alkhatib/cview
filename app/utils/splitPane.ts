@@ -10,6 +10,28 @@ export interface SplitLimits {
 
 export const SPLIT_LIMITS: SplitLimits = { previewMin: 360, editorMin: 400 }
 
+/** Width of the collapsed preview bar in px (D-44). */
+export const COLLAPSED_BAR_WIDTH = 28
+
+/**
+ * Dragging the preview narrower than this many px collapses it: halfway below the minimum
+ * (D-44). Between this and `previewMin` it stays at the minimum.
+ */
+export const collapseThreshold = (limits: SplitLimits = SPLIT_LIMITS) => limits.previewMin / 2
+
+export type DragOutcome = { collapsed: true } | { collapsed: false; fraction: number }
+
+/** What a drag with the pointer at `clientX` means: collapse, or a clamped preview size. */
+export function dragOutcome(
+  clientX: number,
+  rect: { left: number; width: number },
+  limits: SplitLimits = SPLIT_LIMITS,
+): DragOutcome {
+  const previewPx = rect.left + rect.width - clientX
+  if (previewPx < collapseThreshold(limits)) return { collapsed: true }
+  return { collapsed: false, fraction: clampPreview(previewPx / rect.width, rect.width, limits) }
+}
+
 /** Keyboard steps in px: arrow keys, and Shift+arrow. */
 export const SPLIT_STEP = { small: 24, large: 96 } as const
 
@@ -27,12 +49,6 @@ export function clampPreview(fraction: number, width: number, limits: SplitLimit
   if (!Number.isFinite(fraction)) return previewRange(width, limits).min
   const { min, max } = previewRange(width, limits)
   return Math.min(max, Math.max(min, fraction))
-}
-
-/** Preview fraction for a pointer at `clientX`, when the preview is on the right of `rect`. */
-export function fractionFromPointer(clientX: number, rect: { left: number; width: number }) {
-  if (!(rect.width > 0)) return 0.5
-  return (rect.left + rect.width - clientX) / rect.width
 }
 
 /**

@@ -21,7 +21,8 @@ paths:
   - Section change: `<AnimatePresence mode="wait">` around content keyed by `mainId:subId`. The container uses
     `fadeUpStagger.container` (`initial="hidden" animate="visible" exit="exit"`), and the children use `fadeUpStagger.item`.
   - Lists: `<AnimatePresence>` plus `layout` on items keyed by stable `id`.
-- Animate only `transform` and `opacity`. For panel resize or collapse use `layout` or transforms, never width tweens.
+- Animate only `transform` and `opacity`. **One exception (D-44):** the preview collapse toggle animates `flex-basis`
+  (200ms, `motion-safe:`), because FLIP/`layout` scaling would distort the PDF iframe. Live drags never animate.
 - Interruptions must be clean. Rapid clicks never queue animations or block input. App state never
   depends on an animation finishing.
 - Reduced motion: global `<MotionConfig v-bind="motionConfig">` in `app.vue` (`reducedMotion: 'user'`).

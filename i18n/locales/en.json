@@ -12,7 +12,9 @@
     "title": "About"
   },
   "workspace": {
-    "resizePreview": "Resize preview"
+    "resizePreview": "Resize preview",
+    "hidePreview": "Hide preview",
+    "showPreview": "Show preview"
   },
   "editor": {
     "region": "Editor",

@@ -42,9 +42,13 @@ export const useUiStore = defineStore('ui', () => {
     if (!state.value.previewCollapsed) state.value.lastExpandedSize = state.value.previewSize
   }
 
-  function collapsePreview() {
+  /**
+   * Collapses the preview to the thin bar. `restoreSize` is what a later click on the handle
+   * restores. A drag-collapse passes the size from before the drag, not the minimum it passed.
+   */
+  function collapsePreview(restoreSize?: number) {
     if (state.value.previewCollapsed) return
-    state.value.lastExpandedSize = state.value.previewSize
+    state.value.lastExpandedSize = clamp01(restoreSize ?? state.value.previewSize)
     state.value.previewCollapsed = true
   }
 

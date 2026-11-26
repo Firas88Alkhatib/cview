@@ -11,7 +11,7 @@ All UI text goes through i18n keys (D-20), so every task adds its strings to `i1
 | P1-T04 | Stores: `cv`, `versions`, `ui` | done | P1-T03 |
 | P1-T05 | App shell: full-height layout, top bar + split area, no page scroll | done | P0-T04 |
 | P1-T06 | Split layout: resizable panels | done | P1-T05 |
-| P1-T07 | Collapse to thin bar + click/drag handle | todo | P1-T06, P0-T05 |
+| P1-T07 | Collapse to thin bar + click/drag handle | done | P1-T06, P0-T05 |
 | P1-T08 | Mobile layout behaviour | blocked (Q-5) | P1-T07 |
 | P1-T09 | Template system: registry, theme, fonts, PDF label locales | todo | P0-T07, P1-T01, Q-13 |
 | P1-T10 | Template #1 | blocked (Q-6) | P1-T09 |

@@ -1,8 +1,9 @@
 import { describe, expect, it } from 'vitest'
 import {
   clampPreview,
+  collapseThreshold,
+  dragOutcome,
   fractionForKey,
-  fractionFromPointer,
   previewRange,
   SPLIT_LIMITS,
   SPLIT_STEP,
@@ -42,13 +43,6 @@ describe('clampPreview', () => {
   })
 })
 
-describe('fractionFromPointer', () => {
-  it('measures the preview from the right edge', () => {
-    expect(fractionFromPointer(960, { left: 0, width: W })).toBeCloseTo(0.25)
-    expect(fractionFromPointer(340, { left: 20, width: W })).toBeCloseTo(0.75)
-  })
-})
-
 describe('fractionForKey', () => {
   const at = (key: string, shift = false, current = 0.5) =>
     fractionForKey(key, { shift, current, width: W })
@@ -73,5 +67,29 @@ describe('fractionForKey', () => {
 
   it('ignores other keys', () => {
     expect(at('Enter')).toBeNull()
+  })
+})
+
+describe('dragOutcome (D-44)', () => {
+  const rect = { left: 0, width: W }
+  const atPreviewPx = (px: number) => dragOutcome(W - px, rect)
+
+  it('resizes normally above the minimum', () => {
+    expect(atPreviewPx(500)).toEqual({ collapsed: false, fraction: 500 / W })
+  })
+
+  it('holds at the minimum between the threshold and the minimum', () => {
+    expect(collapseThreshold()).toBe(180)
+    expect(atPreviewPx(200)).toEqual({ collapsed: false, fraction: 360 / W })
+    expect(atPreviewPx(180)).toEqual({ collapsed: false, fraction: 360 / W })
+  })
+
+  it('collapses once the preview would be narrower than half the minimum', () => {
+    expect(atPreviewPx(179)).toEqual({ collapsed: true })
+    expect(atPreviewPx(-50)).toEqual({ collapsed: true }) // pointer past the right edge
+  })
+
+  it('still respects the editor minimum', () => {
+    expect(atPreviewPx(W - 10)).toEqual({ collapsed: false, fraction: 1 - 400 / W })
   })
 })

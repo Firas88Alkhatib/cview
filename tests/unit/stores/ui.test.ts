@@ -33,6 +33,23 @@ describe('ui store', () => {
     expect(ui.previewSize).toBe(0.4)
   })
 
+  it('restores the size given at collapse time, e.g. from before a drag', () => {
+    const ui = useUiStore()
+    ui.setPreviewSize(0.3) // the drag passed the minimum on its way to collapsing
+    ui.collapsePreview(0.45) // the size when the drag started
+    ui.expandPreview()
+    expect(ui.previewSize).toBe(0.45)
+  })
+
+  it('ignores a second collapse, so the restore size is not overwritten', () => {
+    const ui = useUiStore()
+    ui.setPreviewSize(0.4)
+    ui.collapsePreview()
+    ui.collapsePreview(0.9)
+    ui.expandPreview()
+    expect(ui.previewSize).toBe(0.4)
+  })
+
   it('expands to a dragged-to size when given one', () => {
     const ui = useUiStore()
     ui.collapsePreview()

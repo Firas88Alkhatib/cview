@@ -7,9 +7,10 @@ const widthOf = async (page: Page, name: string) =>
 /** Drags the divider so its centre ends up at `x`. */
 async function dragDividerTo(page: Page, x: number) {
   const box = (await page.getByRole('separator', { name: 'Resize preview' }).boundingBox())!
-  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2)
+  const y = box.y + box.height / 3 // above the collapse chevron, which sits at the centre
+  await page.mouse.move(box.x + box.width / 2, y)
   await page.mouse.down()
-  await page.mouse.move(x, box.y + box.height / 2, { steps: 8 })
+  await page.mouse.move(x, y, { steps: 8 })
   await page.mouse.up()
 }
 
@@ -30,7 +31,7 @@ test.describe('resizable split (D-43)', () => {
   })
 
   test('the preview never gets narrower than 360px', async ({ page }) => {
-    await dragDividerTo(page, 1270)
+    await dragDividerTo(page, 1280 - 200) // past the minimum but before the snap point (D-44)
     expect(await widthOf(page, 'PDF preview')).toBeCloseTo(360, -1)
   })
 

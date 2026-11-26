@@ -10,7 +10,8 @@ paths:
   Type-checked through `typescript.nodeTsConfig` in `nuxt.config.ts`.
 - `tests/nuxt/`: Nuxt env. Use `mountSuspended` and `mockNuxtImport` from `@nuxt/test-utils/runtime`.
 - `tests/e2e/`: Playwright. Use role/label locators and web-first assertions (`await expect(locator)...`).
-  Never use `waitForTimeout`. Clear storage per test.
+  Never use `waitForTimeout`. Clear storage per test. A running `bun run dev` on :3000 is reused, so
+  stop it if you need to verify production-build behaviour. Chromium only (D-29).
 - Build data with factories from `tests/fixtures/`, not inline object literals.
 - Name tests `describe('<unit>')` + `it('<does what> when <condition>')`.
 - Run the single file you changed first, then the project suite.

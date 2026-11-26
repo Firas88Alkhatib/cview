@@ -32,6 +32,7 @@ Format: `D-<n> | date | decision | why`. Append new entries; don't rewrite histo
 - **D-26 | 2026-11-26 | Linting: `@nuxt/eslint` (flat config) + Prettier, with `eslint-config-prettier` last. Prettier ignores `*.md`.** Resolves Q-7. ESLint catches code problems and Prettier formats. Markdown is agent-facing, and padded tables waste tokens.
 - **D-27 | 2026-11-26 | Component names are multi-word (Vue style guide); app-wide components use the `App` prefix (`AppLogo`, `AppTopbar`).** Required by the `vue/multi-word-component-names` lint rule.
 - **D-28 | 2026-11-26 | motion-v usage: components (`Motion`, `AnimatePresence`, `layoutId`) plus named preset directives (`v-fade-up`, `v-fade-in`) from `app/utils/motion.ts`; raw `v-motion` is disabled.** Developer choice. Components handle layout, exit and stagger, presets give one-line entrances, and all values stay in one place.
+- **D-29 | 2026-11-26 | E2E: Playwright against the production build (`build && preview`), reusing an already-running local server outside CI. Chromium only for now; add Firefox/WebKit before release.** Developer choice. Catches build-only bugs, with a fast local loop.
 
 ## Open questions (ask the developer before the related task)
 - **Q-3 (P1-T01): date format.** Confirm ISO strings (`YYYY-MM`) for periods, and "present" = `end` omitted.

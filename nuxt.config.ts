@@ -11,7 +11,14 @@ export default defineNuxtConfig({
   typescript: {
     strict: true,
     // Unit tests are plain Node code. Nuxt already type-checks tests/nuxt/** (app context).
-    nodeTsConfig: { include: ['../tests/unit/**/*', '../vitest.config.ts'] },
+    nodeTsConfig: {
+      include: [
+        '../tests/unit/**/*',
+        '../tests/e2e/**/*',
+        '../vitest.config.ts',
+        '../playwright.config.ts',
+      ],
+    },
   },
   nitro: { preset: 'Bun' },
   nuxtElysia: { path: '/api' },

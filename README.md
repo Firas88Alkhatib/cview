@@ -45,8 +45,7 @@ bun run dev        # http://localhost:3000
 | `bun run typecheck` | Type-check with vue-tsc |
 | `bun run lint` | ESLint + Prettier check (`lint:fix` / `format` to fix) |
 | `bun run test` | Unit + Nuxt integration tests (`test:unit`, `test:nuxt`, `test:watch`) |
-
-The `test:e2e` (Playwright) script is added during phase 0.
+| `bun run test:e2e` | Playwright E2E against a production build (first run: `bunx playwright install chromium`) |
 
 ## Project docs
 | | |

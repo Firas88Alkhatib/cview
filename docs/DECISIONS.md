@@ -33,6 +33,7 @@ Format: `D-<n> | date | decision | why`. Append new entries; don't rewrite histo
 - **D-27 | 2026-11-26 | Component names are multi-word (Vue style guide); app-wide components use the `App` prefix (`AppLogo`, `AppTopbar`).** Required by the `vue/multi-word-component-names` lint rule.
 - **D-28 | 2026-11-26 | motion-v usage: components (`Motion`, `AnimatePresence`, `layoutId`) plus named preset directives (`v-fade-up`, `v-fade-in`) from `app/utils/motion.ts`; raw `v-motion` is disabled.** Developer choice. Components handle layout, exit and stagger, presets give one-line entrances, and all values stay in one place.
 - **D-29 | 2026-11-26 | E2E: Playwright against the production build (`build && preview`), reusing an already-running local server outside CI. Chromium only for now; add Firefox/WebKit before release.** Developer choice. Catches build-only bugs, with a fast local loop.
+- **D-30 | 2026-11-26 | vue-pdf smoke render lives on the index page as a placeholder (`PdfPreviewSmoke.client.vue` + `app/pdf/HelloDocument.vue`); P1-T11 replaces it and grows `tests/e2e/preview.spec.ts`.** Developer choice. Nothing is thrown away, and the integration stays guarded.
 
 ## Open questions (ask the developer before the related task)
 - **Q-3 (P1-T01): date format.** Confirm ISO strings (`YYYY-MM`) for periods, and "present" = `end` omitted.

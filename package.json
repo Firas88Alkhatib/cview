@@ -21,6 +21,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@ceereals/vue-pdf": "^0.3.1",
     "@elysia/eden": "^1.4.10",
     "@nuxt/ui": "^4.13.1",
     "@pinia/nuxt": "^1.0.3",

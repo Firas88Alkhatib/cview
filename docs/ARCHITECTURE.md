@@ -68,8 +68,10 @@ Form input ─(debounce 300ms)─(UForm + Zod schema)─▶ cv store ─┬─�
 - Custom sections (later) register at runtime in the same registry.
 
 ## PDF pipeline
-- Rendered **client-side only** (`<ClientOnly>`). Re-render is debounced (~300–500 ms, tune later).
-- Output is a Blob object URL shown in an `<iframe>`/`<object>`. Revoke old URLs to avoid leaks.
+- Rendered **client-side only** (`.client.vue` / `<ClientOnly>`) through vue-pdf's `usePdf`, wrapped by our
+  `usePdfDocument`, which adds the debounce (~300–500 ms, tune later). `usePdf` already revokes old blob URLs.
+- Output is a Blob object URL shown in an `<iframe title="CV preview">`.
+- The PDF engine is heavy (~668 KB gzipped). Load it lazily, off the editor's critical path.
 - Fonts are registered once in `app/pdf/shared/fonts.ts` and served from `public/fonts/`. A curated font list
   is exposed to the toolbar. Only registered fonts can be selected.
 - **Two separate languages.** The UI uses `@nuxtjs/i18n` (the user's app locale). The PDF uses

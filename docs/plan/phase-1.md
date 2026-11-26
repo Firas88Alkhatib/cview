@@ -80,7 +80,8 @@ the drag position. Use a motion-v spring transition (reduced-motion aware).
 **Ask first:** Q-5. Scope to be written after the answer.
 
 ### P1-T09: Template system
-**Ask first:** Q-13 (which PDF languages ship first; RTL?) and the curated font list.
+**Ask first:** Q-13 (which PDF languages ship first; RTL?), the curated font list, and a PDF text extractor
+for template tests (page text is hex-encoded, see `.claude/rules/pdf.md`).
 **Do:** `app/pdf/registry.ts`, the template contract (`props: { data, theme, labels, locale }`),
 `app/pdf/shared/fonts.ts` (fonts in `public/fonts/`), shared blocks, and `app/pdf/locales/` with a typed
 `PdfLabels` shape plus one dictionary per language. Dates in the PDF are formatted with `Intl` using `locale`.
@@ -93,8 +94,10 @@ locale implements every label key (a type check plus a runtime test), and that d
 `long` fixture flows onto page 2.
 
 ### P1-T11: Live preview + download
-**Do:** `usePdfDocument(data, templateId, theme)` renders to a Blob URL with a debounce, revokes the
-previous URL, and exposes `url`, `isRendering` and `error`. `PdfViewer.vue` fills the panel, and only the
+**Do:** `usePdfDocument(data, templateId, theme)` wraps vue-pdf's `usePdf` (which already revokes old URLs)
+with a debounce, and exposes `url`, `isRendering` and `error`. Replace `PdfPreviewSmoke.client.vue` and
+`app/pdf/HelloDocument.vue` (D-30). **Lazy-load** the PDF engine (~668 KB gzipped) so the editor is usable
+before it arrives, and measure that with a Playwright check or a bundle report (ask which). `PdfViewer.vue` fills the panel, and only the
 document scrolls through its pages. It shows a subtle loading indicator and an error state. A Download
 button saves `<name>-<version>.pdf`. Keep the scroll position across re-renders if feasible (investigate and report).
 **Done when:** unit or integration tests cover the debounce, URL revocation and error state. An E2E test edits a field,

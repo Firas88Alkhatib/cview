@@ -11,7 +11,7 @@ test.describe('smoke', () => {
     await page.goto('/')
 
     await expect(page.getByRole('banner')).toContainText('CView')
-    await expect(page.getByText('Index page')).toBeVisible()
+    await expect(page.getByTitle('CV preview')).toBeVisible()
     expect(errors).toEqual([])
   })
 })

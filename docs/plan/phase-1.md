@@ -10,7 +10,7 @@ All UI text goes through i18n keys (D-20), so every task adds its strings to `i1
 | P1-T03 | Persistence: `StorageAdapter` + sessionStorage adapter | done | P1-T01 |
 | P1-T04 | Stores: `cv`, `versions`, `ui` | done | P1-T03 |
 | P1-T05 | App shell: full-height layout, top bar + split area, no page scroll | done | P0-T04 |
-| P1-T06 | Split layout: resizable panels | todo | P1-T05 |
+| P1-T06 | Split layout: resizable panels | done | P1-T05 |
 | P1-T07 | Collapse to thin bar + click/drag handle | todo | P1-T06, P0-T05 |
 | P1-T08 | Mobile layout behaviour | blocked (Q-5) | P1-T07 |
 | P1-T09 | Template system: registry, theme, fonts, PDF label locales | todo | P0-T07, P1-T01, Q-13 |
@@ -77,6 +77,8 @@ focusable `role="separator"` with `aria-valuenow`). The width is stored in the `
 **Done when:** integration tests cover the width clamp and keyboard resize, and an E2E test drags the divider.
 
 ### P1-T07: Collapse
+**Builds on:** `PreviewSplitPane` (`app/components/preview/SplitPane.vue`) and `app/utils/splitPane.ts`. The `ui` store
+already has `collapsePreview()` and `expandPreview(size?)`, which restores `lastExpandedSize`.
 **Do:** dragging below `min` (snap threshold, ask) or clicking collapse turns the panel into a thin vertical
 bar with a pop-out handle. **Click** the handle to restore the last width. **Drag** the handle to expand to
 the drag position. Use a motion-v spring transition (reduced-motion aware).

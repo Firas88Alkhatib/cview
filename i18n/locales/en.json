@@ -11,6 +11,9 @@
   "about": {
     "title": "About"
   },
+  "workspace": {
+    "resizePreview": "Resize preview"
+  },
   "editor": {
     "region": "Editor",
     "placeholder": "The section editor is coming soon."

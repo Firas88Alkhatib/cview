@@ -13,6 +13,10 @@ paths:
   commits only if valid. `cv` store actions wrap it and return `boolean` (or `id | null` for adds). Never mutate
   `versions.versions` directly.
 - `structuredClone` can't copy reactive proxies, so use `structuredClone(toRaw(x))`.
+- Storage-backed refs in setup stores (VueUse `useStorage`) must be returned as `skipHydrate(ref)`. Otherwise Pinia
+  overwrites them on the client with the SSR state (defaults), and the saved value is lost on reload.
+- Components that render client-stored state (e.g. sizes) use the default until `useMounted()` is true, to avoid
+  SSR hydration mismatches.
 - Unit-test stores with `setActivePinia(createPinia())`, an adapter over `MemoryStorage`, `hydrate({ adapter })`,
   fake timers and `flush()`. For reload tests (`tests/nuxt/stores/persistence.test.ts`), make a fresh Pinia
   against the same sessionStorage.

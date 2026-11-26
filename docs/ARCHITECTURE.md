@@ -20,7 +20,7 @@ app/
     layout/           AppTopbar.vue, AppMenu.vue (hamburger), UserAvatar.vue
     editor/           EditorNav.vue (both bars), TabBar.vue (scrollable, layoutId indicator),
                       EditorContent.vue (transition + stagger), sections/<Section>*.vue forms
-    preview/          PreviewPanel.vue, PreviewToolbar.vue (colours/font/language), PdfViewer.vue,
+    preview/          SplitPane.vue (resizable editor|preview, D-43), PreviewPanel.vue, PreviewToolbar.vue (colours/font/language), PdfViewer.vue,
                       SplitPane.vue, CollapseHandle.vue
     versions/         Version switcher / manager
   pdf/

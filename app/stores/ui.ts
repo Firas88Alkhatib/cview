@@ -1,6 +1,6 @@
 import { useStorage } from '@vueuse/core'
 import type { StorageLike } from '@vueuse/core'
-import { defineStore } from 'pinia'
+import { defineStore, skipHydrate } from 'pinia'
 import { computed } from 'vue'
 import { UI_DEFAULTS, uiStateSchema } from '~/schemas/ui'
 import type { UiState } from '~/types'
@@ -63,7 +63,9 @@ export const useUiStore = defineStore('ui', () => {
   }
 
   return {
-    state,
+    // skipHydrate: the store also exists during SSR (with defaults), and Pinia would otherwise
+    // overwrite this sessionStorage-backed ref with that SSR state on the client.
+    state: skipHydrate(state),
     previewSize: computed(() => state.value.previewSize),
     previewCollapsed: computed(() => state.value.previewCollapsed),
     editor: computed(() => state.value.editor),

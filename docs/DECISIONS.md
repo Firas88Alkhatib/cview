@@ -31,6 +31,7 @@ Format: `D-<n> | date | decision | why`. Append new entries; don't rewrite histo
 - **D-25 | 2026-11-26 | TypeScript pinned to `^6.0.3` (matches Nuxt 4's bundled version).** TS 7 (native Go port) lacks the JS API that vue-tsc needs. Revisit when vue-tsc supports TS 7.
 - **D-26 | 2026-11-26 | Linting: `@nuxt/eslint` (flat config) + Prettier, with `eslint-config-prettier` last. Prettier ignores `*.md`.** Resolves Q-7. ESLint catches code problems and Prettier formats. Markdown is agent-facing, and padded tables waste tokens.
 - **D-27 | 2026-11-26 | Component names are multi-word (Vue style guide); app-wide components use the `App` prefix (`AppLogo`, `AppTopbar`).** Required by the `vue/multi-word-component-names` lint rule.
+- **D-28 | 2026-11-26 | motion-v usage: components (`Motion`, `AnimatePresence`, `layoutId`) plus named preset directives (`v-fade-up`, `v-fade-in`) from `app/utils/motion.ts`; raw `v-motion` is disabled.** Developer choice. Components handle layout, exit and stagger, presets give one-line entrances, and all values stay in one place.
 
 ## Open questions (ask the developer before the related task)
 - **Q-3 (P1-T01): date format.** Confirm ISO strings (`YYYY-MM`) for periods, and "present" = `end` omitted.

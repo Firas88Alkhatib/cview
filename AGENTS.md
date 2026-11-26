@@ -31,7 +31,7 @@ Full product spec: `docs/PROJECT.md` · Architecture: `docs/ARCHITECTURE.md` · 
 | i18n | `@nuxtjs/i18n`: every UI string via `t()` / `$t()`, English first (`i18n/locales/en.json`) |
 | Validation | Zod v4 — schemas are the source of truth; types come from `z.infer` |
 | PDF | `@ceereals/vue-pdf` (component-based documents, rendered client-side) |
-| Animation | motion-v (`motion-v/nuxt`) + Vue `<Transition>`. Presets in `app/utils/motion.ts` |
+| Animation | motion-v components + preset directives (`v-fade-up`, `v-fade-in`). All values in `app/utils/motion.ts` |
 | API (phase 2+) | Elysia via `nuxt-elysia` mounted at `/api` (`api.ts`), Eden client for typed calls |
 | DB (phase 2+) | PostgreSQL + Drizzle ORM |
 | Tests | Vitest + `@nuxt/test-utils` (unit + integration), Playwright (E2E) |

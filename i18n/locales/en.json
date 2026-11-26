@@ -13,5 +13,27 @@
   },
   "preview": {
     "frameTitle": "CV preview"
+  },
+  "validation": {
+    "required": "This field is required",
+    "tooShort": "Must be at least {min} characters",
+    "tooLong": "Must be at most {max} characters",
+    "tooFew": "Add at least {min} items",
+    "tooMany": "No more than {max} items",
+    "tooLow": "Must be at least {min}",
+    "tooHigh": "Must be at most {max}",
+    "invalidEmail": "Enter a valid email address",
+    "invalidUrl": "Enter a valid link starting with http:// or https://",
+    "invalidDate": "Enter a valid date",
+    "invalidId": "Invalid identifier",
+    "invalidFormat": "Invalid format",
+    "invalidOption": "Choose one of the available options",
+    "invalidType": "Invalid value",
+    "invalid": "Invalid value",
+    "invalidPhone": "Use digits, spaces and + ( ) - . only",
+    "invalidMonth": "Enter a month as YYYY-MM",
+    "periodOrder": "End date can't be before the start date",
+    "invalidColor": "Use a hex colour like #1E40AF",
+    "invalidLocale": "Unsupported language"
   }
 }

@@ -9,8 +9,13 @@ paths:
 - Zod v4 schemas in `app/schemas/` are the single source of truth. Types are `z.infer` only. Never
   hand-write a type that duplicates a schema.
 - Name schemas `<thing>Schema` and types `<Thing>`, e.g. `export const linkSchema = z.object(...)` and `export type Link = z.infer<typeof linkSchema>`.
-- Write user-facing error messages in the schema (`{ error: '...' }` in Zod v4; verify the syntax).
-- Dates are ISO strings (see `docs/DECISIONS.md`), never `Date`.
+- **No messages in schemas** (D-37). Generic issues are mapped by `issueToI18n` (`app/utils/validation.ts`).
+  A custom `.refine()` attaches its key with `withKey('validation.x')`. Add new keys to `VALIDATION_KEYS` **and**
+  `en.json` (a unit test checks both). `zod-i18n.client.ts` translates messages at validation time.
+- Build fields from `app/schemas/shared.ts` (`requiredText`, `optionalText`, `periodSchema`, `idSchema`, …) and `LIMITS`.
+  Optional text accepts `''`, because cleared inputs produce it.
+- Test schemas with `issuesOf(schema, value)` (`tests/unit/schemas/helpers.ts`), which returns `[path, i18nKey]` pairs.
+- Dates: `YYYY-MM` periods (`monthSchema`, `periodSchema`), never `Date` (D-33).
 - Changing a schema's shape is a data-model change. **Ask the developer first.** It also affects the
   storage schema version (migration) and, later, Drizzle.
 - Forms: `<UForm :schema :state @submit>` with `<UFormField name label>` per input. Nuxt UI v4 accepts

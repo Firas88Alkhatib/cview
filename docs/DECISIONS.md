@@ -36,10 +36,13 @@ Format: `D-<n> | date | decision | why`. Append new entries; don't rewrite histo
 - **D-30 | 2026-11-26 | vue-pdf smoke render lives on the index page as a placeholder (`PdfPreviewSmoke.client.vue` + `app/pdf/HelloDocument.vue`); P1-T11 replaces it and grows `tests/e2e/preview.spec.ts`.** Developer choice. Nothing is thrown away, and the integration stays guarded.
 - **D-31 | 2026-11-26 | i18n: `@nuxtjs/i18n` v10, strategy `no_prefix`, locale in a `cview_locale` cookie (browser language fallback), messages in `i18n/locales/<code>.json`, lazy-loaded. Missing keys are caught by a source-scanning unit test (`t()` isn't type-safe).** Developer chose no URL prefix; it's an app, so SEO per language doesn't matter.
 - **D-32 | 2026-11-26 | No parent-relative (`../`) imports; use `~/` (app) or `~~/` (root) everywhere, including tests. Same-folder `./` is allowed. Enforced by ESLint `no-restricted-imports`.** Developer requirement. Imports stay readable and survive file moves.
+- **D-33 | 2026-11-26 | CV dates are `YYYY-MM` strings; a missing `end` means "present"; `end` may not be before `start`.** Resolves Q-3. The CV convention, and safe for JSON and storage.
+- **D-34 | 2026-11-26 | Language level = CEFR (A1–C2) + `native`.** Recognised standard, and templates can render it.
+- **D-35 | 2026-11-26 | One role per experience entry; a promotion is a second entry for the same company.** Keeps the form flat and matches the per-company sub-tabs.
+- **D-36 | 2026-11-26 | Schema fields and limits approved as proposed (`LIMITS` in `app/schemas/shared.ts`).** Resolves Q-4.
+- **D-37 | 2026-11-26 | Schemas carry no messages. `issueToI18n` maps Zod issues to `validation.*` keys plus params, custom checks attach keys via `withKey()`, and a client plugin (`zod-i18n.client.ts`) registers the mapper with `z.config({ customError })`.** Messages are translated at validation time in the current UI language, with one path for every error.
 
 ## Open questions (ask the developer before the related task)
-- **Q-3 (P1-T01): date format.** Confirm ISO strings (`YYYY-MM`) for periods, and "present" = `end` omitted.
-- **Q-4 (P1-T01): data model review.** Confirm the fields per section, required vs optional, and limits.
 - **Q-5 (P1-T07): small screens.** How should the split layout behave on mobile (tabs, drawer, stacked)?
 - **Q-6 (P1-T09): first template design.** Get a reference or description of template #1 (layout, fonts, colours).
 - **Q-8 (phase 3): auth.** Provider and strategy (email/password, OAuth, magic link; library choice).

@@ -5,7 +5,7 @@ All UI text goes through i18n keys (D-20), so every task adds its strings to `i1
 
 | ID | Task | Status | Depends |
 |---|---|---|---|
-| P1-T01 | Zod schemas + inferred types for all CV sections | todo | P0-T02, Q-3, Q-4 |
+| P1-T01 | Zod schemas + inferred types for all CV sections | done | P0-T02 |
 | P1-T02 | Test fixtures/factories (`makeCvData`, …) | todo | P1-T01 |
 | P1-T03 | Persistence: `StorageAdapter` + sessionStorage adapter | todo | P1-T01 |
 | P1-T04 | Stores: `cv`, `versions`, `ui` | todo | P1-T03 |
@@ -43,7 +43,7 @@ with `z.infer` exports. The current draft mixes `Date` and `string` and uses `Ex
 **Done when:** unit tests cover the valid and invalid boundaries of every schema, and typecheck passes.
 
 ### P1-T02: Fixtures
-**Do:** `tests/fixtures/cv.ts` with `makeCvData(overrides?)`, `makeVersion(overrides?)`, and `full`/`minimal`/
+**Do:** move the inline samples from `tests/unit/schemas/*.test.ts` into factories in `tests/fixtures/cv.ts`: `makeCvData(overrides?)`, `makeVersion(overrides?)`, and `full`/`minimal`/
 `long` presets. Fixtures must pass the schemas, and a test asserts this.
 
 ### P1-T03: Persistence

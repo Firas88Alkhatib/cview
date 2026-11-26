@@ -40,10 +40,11 @@ tests/
 - `CvData`: the content of one CV (sections). Defined by `cvDataSchema`.
 - `CvVersion`: `{ id, name, templateId, theme, pdfLocale, data: CvData, createdAt, updatedAt }`.
 - `Theme`: `{ colors: { primary, secondary?, background, text }, font }`. The exact keys are decided in Q-12.
-- Dates are stored as **ISO strings** (`YYYY-MM` for periods), never `Date` objects, so they serialize
-  cleanly to storage and JSON. *(Proposed. Confirm in P1-T01.)*
-- The existing hand-written interfaces in `app/types/index.ts` are a draft. P1-T01 replaces them with
-  Zod schemas plus inferred types.
+- Dates are strings, never `Date` objects: periods are `YYYY-MM` (no `end` means present), and date of birth is `YYYY-MM-DD` (D-33).
+- Schemas live in `app/schemas/` (one file per section plus `shared.ts` with building blocks and `LIMITS`), and
+  `app/types/index.ts` holds `z.infer` types only.
+- Validation messages: schemas carry no text. `app/utils/validation.ts#issueToI18n` maps issues to `validation.*` keys,
+  and `app/plugins/zod-i18n.client.ts` translates them globally (D-37).
 
 ## Data flow
 ```

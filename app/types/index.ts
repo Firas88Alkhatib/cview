@@ -1,66 +1,33 @@
-export interface Period {
-  start: Date
-  end?: string
-}
+import type { z } from 'zod'
+import type {
+  addressSchema,
+  cvDataSchema,
+  cvVersionSchema,
+  educationSchema,
+  experienceSchema,
+  languageSchema,
+  LANGUAGE_LEVELS,
+  linkSchema,
+  periodSchema,
+  profileSchema,
+  projectSchema,
+  skillSchema,
+  themeSchema,
+  WORK_MODELS,
+} from '~/schemas'
 
-export interface Address {
-  country: string
-  city?: string
-  street?: string
-  postalCode?: string
-}
-
-export type WorkModel = 'Onsite' | 'Remote' | 'Hybrid'
-
-export interface Link {
-  name: string
-  url: string
-}
-
-export interface Template {
-  name: string
-  primaryColor: string
-  secondaryColor?: string
-  backgroundColor: string
-  font: string
-}
-
-export interface User {
-  firstName: string
-  lastName: string
-  email: string
-  phoneNumber?: string
-  title?: string
-  dateOfBirth?: Date
-  address?: Address
-}
-
-export interface ExperienceBase {
-  role: string
-  period: Period
-  description: string
-  skills: string[]
-  location?: string
-  workModel?: WorkModel
-  projects?: Project[]
-}
-export interface Education {
-  institution: string
-  degree: string
-  period: Period
-  major?: string
-  description?: string
-}
-
-export interface Skill {
-  name: string
-  level: number
-  description?: string
-}
-
-export interface Project extends ExperienceBase {
-  projectName: string
-}
-export interface ExperienceItem extends ExperienceBase {
-  company: string
-}
+// Inferred types only. Never hand-write a type that duplicates a schema (D-3).
+export type Period = z.infer<typeof periodSchema>
+export type Address = z.infer<typeof addressSchema>
+export type Link = z.infer<typeof linkSchema>
+export type Profile = z.infer<typeof profileSchema>
+export type Project = z.infer<typeof projectSchema>
+export type WorkModel = (typeof WORK_MODELS)[number]
+export type Experience = z.infer<typeof experienceSchema>
+export type Education = z.infer<typeof educationSchema>
+export type Skill = z.infer<typeof skillSchema>
+export type LanguageLevel = (typeof LANGUAGE_LEVELS)[number]
+export type Language = z.infer<typeof languageSchema>
+export type Theme = z.infer<typeof themeSchema>
+export type CvData = z.infer<typeof cvDataSchema>
+export type CvVersion = z.infer<typeof cvVersionSchema>
